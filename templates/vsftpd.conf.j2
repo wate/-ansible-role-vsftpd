@@ -272,8 +272,8 @@ local_enable={{ 'YES' if vsftpd_cfg.local_enable else 'NO' }}
 {% if vsftpd_cfg.lock_upload_files is defined -%}
 # When enabled, all uploads proceed with a write lock on the upload file.
 # All downloads proceed with a shared read lock on the download file.
-# WARNING! Before enabling this,
-# be aware that malicious readers could starve a writer wanting to e.g. append a file.
+# WARNING!
+# Before enabling this, be aware that malicious readers could starve a writer wanting to e.g. append a file.
 # Default: YES
 lock_upload_files={{ 'YES' if vsftpd_cfg.lock_upload_files else 'NO' }}
 {% endif -%}
@@ -783,7 +783,7 @@ chown_username={{ vsftpd_cfg.chown_username }}
 # This is a powerful method of really locking down an FTP server.
 # Example: cmds_allowed=PASV,RETR,QUIT
 # Default: (none)
-cmds_allowed={{ vsftpd_cfg.cmds_allowed }}
+cmds_allowed={{ vsftpd_cfg.cmds_allowed if vsftpd_cfg.cmds_allowed is string else vsftpd_cfg.cmds_allowed|join(',') }}
 {% endif -%}
 
 {% if vsftpd_cfg.cmds_denied is defined -%}
@@ -792,7 +792,7 @@ cmds_allowed={{ vsftpd_cfg.cmds_allowed }}
 # If a command appears on both this and cmds_allowed then the denial takes precedence.
 # (Added in v2.1.0).
 # Default: (none)
-cmds_denied={{ vsftpd_cfg.cmds_denied }}
+cmds_denied={{ vsftpd_cfg.cmds_denied if vsftpd_cfg.cmds_denied is string else vsftpd_cfg.cmds_denied|join(',') }}
 {% endif -%}
 
 {% if vsftpd_cfg.deny_file is defined -%}
