@@ -3,12 +3,6 @@
   roles:
     - role: vsftpd
   pre_tasks:
-    - name:  install pyOpenSSL
-      yum:
-        name: pyOpenSSL
-    - name:  generate OpenSSL private key
-      openssl_privatekey:
-        path: /etc/ssl/certs/vsftpd.pem
     - name: dump vars
       block:
         - name: create dump directory
