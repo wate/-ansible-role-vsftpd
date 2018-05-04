@@ -27,7 +27,7 @@ vsftpd_cfg:
   # lock_upload_files: yes
   # chmod_enable: yes
   # dirlist_enable: yes
-  # file_open_mode: 0666
+  # file_open_mode: "0666"
   ls_recurse_enable: yes
   ascii_download_enable: yes
   ascii_upload_enable: yes
@@ -82,11 +82,11 @@ vsftpd_cfg:
   # anon_upload_enable: no
   # anon_world_readable_only: yes
   # anon_max_rate: 0
-  # anon_umask: 077
+  # anon_umask: "077"
   # ftp_username: ftp
   # chown_uploads: no
   # chown_username: root
-  # chown_upload_mode: 0600
+  # chown_upload_mode: "0600"
   # secure_email_list_enable: no
   # no_anon_password: no
   # email_password_file: /etc/vsftpd/email_passwords
@@ -101,7 +101,7 @@ vsftpd_cfg:
   local_enable: yes
   # local_root: ""
   # local_max_rate: 0
-  local_umask: 022
+  local_umask: "022"
   userlist_enable: yes
   userlist_deny: yes
   userlist_file: /etc/vsftpd/user_list
