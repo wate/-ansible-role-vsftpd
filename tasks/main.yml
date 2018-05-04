@@ -27,9 +27,26 @@
     name: vsftpd
     state: started
     enabled: yes
-- name: allow vsftpd port
+- name: allow ftp control port
   firewalld:
-    service: ftp
+    port: "{{ vsftpd_cfg.listen_port|default(21) }}/tcp"
     permanent: yes
     state: enabled
   notify: restart firewalld
+- name: allow ftp data port
+  firewalld:
+    port: "{{ vsftpd_cfg.ftp_data_port|default(20) }}/tcp"
+    permanent: yes
+    state: enabled
+  notify: restart firewalld
+  when: not vsftpd_cfg.pasv_enable|default(true)
+- name: allow ftp data port(PASV)
+  firewalld:
+    port: "{{ vsftpd_cfg.pasv_min_port }}-{{ vsftpd_cfg.pasv_max_port }}/tcp"
+    permanent: yes
+    state: enabled
+  notify: restart firewalld
+  when:
+    - vsftpd_cfg.pasv_enable|default(true)
+    - vsftpd_cfg.pasv_min_port|default(0) > 0
+    - vsftpd_cfg.pasv_max_port|default(0) > 0
