@@ -1,0 +1,148 @@
+---
+vsftpd_cfg:
+  anonymous_enable: no
+  # allow_anon_ssl: no
+  # anon_mkdir_write_enable: no
+  # anon_other_write_enable: no
+  # anon_upload_enable: no
+  # anon_world_readable_only: yes
+  ascii_download_enable: no
+  ascii_upload_enable: yes
+  # async_abor_enable: yes
+  # background: no
+  # check_shell: yes
+  # chmod_enable: yes
+  # chown_uploads: no
+  chroot_local_user: yes
+  chroot_list_enable: no
+  chroot_list_file: /etc/vsftpd/chroot_list
+  # connect_from_port_20: no
+  # debug_ssl: no
+  # delete_failed_uploads: no
+  # deny_email_enable: no
+  # dirlist_enable: yes
+  # dirmessage_enable: no
+  # download_enable: yes
+  # dual_log_enable: no
+  # force_dot_files: no
+  # force_anon_data_ssl: no
+  # force_anon_logins_ssl: no
+  # force_local_data_ssl: yes
+  # force_local_logins_ssl: yes
+  # guest_enable: no
+  # hide_ids: no
+  # implicit_ssl: no
+  listen: no
+  listen_ipv6: yes
+  # local_enable: no
+  # lock_upload_files: yes
+  # log_ftp_protocol: no
+  # ls_recurse_enable: no
+  # mdtm_write: yes
+  # no_anon_password: no
+  # no_log_lock: no
+  # one_process_model: no
+  # passwd_chroot_enable: no
+  # pasv_addr_resolve: no
+  # pasv_enable: yes
+  # pasv_promiscuous: no
+  # port_enable: yes
+  # port_promiscuous: no
+  # require_cert: no
+  # require_ssl_reuse: yes
+  # run_as_launching_user: no
+  # secure_email_list_enable: no
+  # session_support: no
+  # setproctitle_enable: no
+  # ssl_enable: no
+  # ssl_request_cert: yes
+  # ssl_sslv2: no
+  # ssl_sslv3: no
+  # ssl_tlsv1: yes
+  # strict_ssl_read_eof: no
+  # strict_ssl_write_shutdown: no
+  # syslog_enable: no
+  tcp_wrappers: yes
+  # text_userdb_names: no
+  # tilde_user_enable: no
+  # use_localtime: no
+  # use_sendfile: yes
+  # userlist_deny: yes
+  # userlist_enable: no
+  # validate_cert: no
+  # virtual_use_local_privs: no
+  # write_enable: no
+  # xferlog_enable: no
+  # xferlog_std_format: no
+  # accept_timeout: 60
+  # anon_max_rate: 0
+  # anon_umask: 077
+  # chown_upload_mode: 0600
+  # connect_timeout: 60
+  # data_connection_timeout: 300
+  # delay_failed_login: 1
+  # delay_successful_login: 0
+  # file_open_mode: 0666
+  # ftp_data_port: 20
+  # idle_session_timeout: 300
+  # listen_port: 21
+  # local_max_rate: 0
+  # local_umask: 077
+  # max_clients: 0
+  # max_login_fails: 3
+  # max_per_ip: 0
+  # pasv_max_port: 0
+  # pasv_min_port: 0
+  # trans_chunk_size: 0
+  # anon_root: ""
+  # banned_email_file: /etc/vsftpd/banned_emails
+  # banner_file: ""
+  # ca_certs_file: ""
+  # chown_username: root
+  # cmds_allowed: ""
+  # cmds_denied: ""
+  # deny_file: ""
+  # dsa_cert_file: ""
+  # dsa_private_key_file: ""
+  # email_password_file: /etc/vsftpd/email_passwords
+  # ftp_username: ftp
+  # ftpd_banner: ""
+  # guest_username: ftp
+  # hide_file: ""
+  # listen_address: ""
+  # listen_address6: ""
+  # local_root: ""
+  # message_file: .message
+  # nopriv_user: nobody
+  pam_service_name: vsftpd
+  # pasv_address: ""
+  # rsa_cert_file: /usr/share/ssl/certs/vsftpd.pem
+  # rsa_private_key_file: ""
+  # secure_chroot_dir: /usr/share/empty
+  # ssl_ciphers: DES-CBC3-SHA
+  # user_config_dir: ""
+  # user_sub_token: ""
+  # userlist_file: /etc/vsftpd/user_list
+  # vsftpd_log_file: /var/log/vsftpd.log
+  # xferlog_file: /var/log/xferlog
+
+
+vsftpd_userlist:
+  - root
+  - bin
+  - daemon
+  - adm
+  - lp
+  - sync
+  - shutdown
+  - halt
+  - mail
+  - news
+  - uucp
+  - operator
+  - games
+  - nobody
+
+vsftpd_chroot_list: []
+vsftpd_banned_emails: []
+vsftpd_email_passwords: []

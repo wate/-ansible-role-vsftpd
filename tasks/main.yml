@@ -1,0 +1,35 @@
+---
+- name: install vsftpd
+  yum:
+    name: vsftpd
+- name: create vsftpd setting file
+  template:
+    src: vsftpd.conf.j2
+    dest: /etc/vsftpd/vsftpd.conf
+- name: create vsftpd user list file
+  template:
+    src: user_list.j2
+    dest: /etc/vsftpd/user_list
+- name: create vsftpd chroot user list file
+  template:
+    src: chroot_list.j2
+    dest: /etc/vsftpd/chroot_list
+- name: create vsftpd banned email file
+  template:
+    src: banned_emails.j2
+    dest: /etc/vsftpd/banned_emails
+- name: create vsftpd email password file
+  template:
+    src: email_passwords.j2
+    dest: /etc/vsftpd/email_passwords
+- name: vsftpd is active and enabled on system startup
+  systemd:
+    name: vsftpd
+    state: started
+    enabled: yes
+- name: allow vsftpd port
+  firewalld:
+    service: ftp
+    permanent: yes
+    state: enabled
+  notify: restart firewalld
