@@ -1,249 +1,3 @@
-{% if vsftpd_cfg.anonymous_enable is defined -%}
-# Controls whether anonymous logins are permitted or not.
-# If enabled, both the usernames ftp and anonymous are recognised as anonymous logins.
-# Default: YES
-anonymous_enable={{ 'YES' if vsftpd_cfg.anonymous_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.allow_anon_ssl is defined -%}
-# Only applies if ssl_enable is active. If set to YES,
-# anonymous users will be allowed to use secured SSL connections.
-# Default: NO
-allow_anon_ssl={{ 'YES' if vsftpd_cfg.allow_anon_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_mkdir_write_enable is defined -%}
-# If set to YES, anonymous users will be permitted to create new directories under certain conditions.
-# For this to work, the option write_enable must be activated,
-# and the anonymous ftp user must have write permission on the parent directory.
-# Default: NO
-anon_mkdir_write_enable={{ 'YES' if vsftpd_cfg.anon_mkdir_write_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_other_write_enable is defined -%}
-# If set to YES, anonymous users will be permitted to perform write operations other than
-# upload and create directory, such as deletion and renaming.
-# This is generally not recommended but included for completeness.
-# Default: NO
-anon_other_write_enable={{ 'YES' if vsftpd_cfg.anon_other_write_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_upload_enable is defined -%}
-# If set to YES, anonymous users will be permitted to upload files under certain conditions.
-# For this to work, the option write_enable must be activated,
-# and the anonymous ftp user must have write permission on desired upload locations.
-# This setting is also required for virtual users to upload; by default,
-# virtual users are treated with anonymous (i.e. maximally restricted) privilege.
-# Default: NO
-anon_upload_enable={{ 'YES' if vsftpd_cfg.anon_upload_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_world_readable_only is defined -%}
-# When enabled, anonymous users will only be allowed to download files which are world readable.
-# This is recognising that the ftp user may own files, especially in the presence of uploads.
-# Default: YES
-anon_world_readable_only={{ 'YES' if vsftpd_cfg.anon_world_readable_only else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.ascii_download_enable is defined -%}
-# When enabled, ASCII mode data transfers will be honoured on downloads.
-# Default: NO
-ascii_download_enable={{ 'YES' if vsftpd_cfg.ascii_download_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.ascii_upload_enable is defined -%}
-# When enabled, ASCII mode data transfers will be honoured on uploads.
-# Default: NO
-ascii_upload_enable={{ 'YES' if vsftpd_cfg.ascii_upload_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.async_abor_enable is defined -%}
-# When enabled, a special FTP command known as "async ABOR" will be enabled.
-# Only ill advised FTP clients will use this feature. Additionally,
-# this feature is awkward to handle, so it is disabled by default.
-# Unfortunately, some FTP clients will hang when cancelling a transfer unless
-# this feature is available, so you may wish to enable it.
-# Default: NO
-async_abor_enable={{ 'YES' if vsftpd_cfg.async_abor_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.background is defined -%}
-# When enabled, and vsftpd is started in "listen" mode, vsftpd will background the listener process.
-# i.e. control will immediately be returned to the shell which launched vsftpd.
-# Default: NO
-background={{ 'YES' if vsftpd_cfg.background else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.check_shell is defined -%}
-# Note! This option only has an effect for non-PAM builds of vsftpd.
-# If disabled, vsftpd will not check /etc/shells for a valid user shell for local logins.
-# Default: YES
-check_shell={{ 'YES' if vsftpd_cfg.check_shell else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.chmod_enable is defined -%}
-# When enabled, allows use of the SITE CHMOD command.
-# NOTE! This only applies to local users. Anonymous users never get to use SITE CHMOD.
-# Default: YES
-chmod_enable={{ 'YES' if vsftpd_cfg.chmod_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.chown_uploads is defined -%}
-# If enabled, all anonymously uploaded files will have the ownership changed to the
-# user specified in the setting chown_username.
-# This is useful from an administrative, and perhaps security, standpoint.
-# Default: NO
-chown_uploads={{ 'YES' if vsftpd_cfg.chmod_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.chroot_local_user is defined -%}
-# If set to YES, local users will be (by default) placed in a chroot() jail in
-# their home directory after login.
-# Warning: This option has security implications, especially
-# if the users have upload permission, or shell access.
-# Only enable if you know what you are doing. Note that these security implications are not vsftpd specific.
-# They apply to all FTP daemons which offer to put local users in chroot() jails.
-# Default: NO
-chroot_local_user={{ 'YES' if vsftpd_cfg.chroot_local_user else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.chroot_list_enable is defined -%}
-# If activated, you may provide a list of local users who are placed in a chroot() jail in
-# their home directory upon login.
-# The meaning is slightly different if chroot_local_user is set to YES.
-# In this case, the list becomes a list of users which are NOT to be placed in a chroot() jail.
-# By default, the file containing this list is /etc/vsftpd.chroot_list,
-# but you may override this with the chroot_list_file setting.
-# Default: NO
-chroot_list_enable={{ 'YES' if vsftpd_cfg.chroot_list_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.chroot_list_file is defined -%}
-# The option is the name of a file containing a list of local users which will be placed in a chroot() jail in their home directory.
-# This option is only relevant if the option chroot_list_enable is enabled.
-# If the option chroot_local_user is enabled,
-# then the list file becomes a list of users to NOT place in a chroot() jail.
-# Default: /etc/vsftpd.chroot_list
-chroot_list_file={{ vsftpd_cfg.chroot_list_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.connect_from_port_20 is defined -%}
-# This controls whether PORT style data connections use port 20 (ftp-data) on the server machine.
-# For security reasons, some clients may insist that this is the case.
-# Conversely, disabling this option enables vsftpd to run with slightly less privilege.
-# Default: NO (but the sample config file enables it)
-connect_from_port_20={{ 'YES' if vsftpd_cfg.connect_from_port_20 else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.debug_ssl is defined -%}
-# If true, OpenSSL connection diagnostics are dumped to the vsftpd log file. (Added in v2.0.6).
-# Default: NO
-debug_ssl={{ 'YES' if vsftpd_cfg.debug_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.delete_failed_uploads is defined -%}
-# If true, any failed upload files are deleted. (Added in v2.0.7).
-# Default: NO
-delete_failed_uploads={{ 'YES' if vsftpd_cfg.delete_failed_uploads else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.deny_email_enable is defined -%}
-# If activated, you may provide a list of anonymous password e-mail responses
-# which cause login to be denied.
-# By default, the file containing this list is /etc/vsftpd.banned_emails,
-# but you may override this with the banned_email_file setting.
-# Default: NO
-deny_email_enable={{ 'YES' if vsftpd_cfg.deny_email_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.dirlist_enable is defined -%}
-# If set to NO, all directory list commands will give permission denied.
-# Default: YES
-dirlist_enable={{ 'YES' if vsftpd_cfg.dirlist_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.dirmessage_enable is defined -%}
-# If enabled, users of the FTP server can be shown messages when they first enter a new directory.
-# By default, a directory is scanned for the file .message,
-# but that may be overridden with the configuration setting message_file.
-# Default: NO (but the sample config file enables it)
-dirmessage_enable={{ 'YES' if vsftpd_cfg.dirmessage_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.download_enable is defined -%}
-# If set to NO, all download requests will give permission denied.
-# Default: YES
-download_enable={{ 'YES' if vsftpd_cfg.download_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.dual_log_enable is defined -%}
-# If enabled, two log files are generated in parallel,
-# going by default to /var/log/xferlog and /var/log/vsftpd.log.
-# The former is a wu-ftpd style transfer log,
-# parseable by standard tools. The latter is vsftpd's own style log.
-# Default: NO
-dual_log_enable={{ 'YES' if vsftpd_cfg.dual_log_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_dot_files is defined -%}
-# If activated, files and directories starting with .
-# will be shown in directory listings even if the "a" flag was not used by the client.
-# This override excludes the "." and ".." entries.
-# Default: NO
-force_dot_files={{ 'YES' if vsftpd_cfg.force_dot_files else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_anon_data_ssl is defined -%}
-# Only applies if ssl_enable is activated. If activated,
-# all anonymous logins are forced to use a secure SSL connection in order
-# to send and receive data on data connections.
-# Default: NO
-force_anon_data_ssl={{ 'YES' if vsftpd_cfg.force_anon_data_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_anon_logins_ssl is defined -%}
-# Only applies if ssl_enable is activated. If activated,
-# all anonymous logins are forced to use a secure SSL connection in order to send the password.
-# Default: NO
-force_anon_logins_ssl={{ 'YES' if vsftpd_cfg.force_anon_logins_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_local_data_ssl is defined -%}
-# Only applies if ssl_enable is activated.
-# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
-# to send and receive data on data connections.
-# Default: YES
-force_local_data_ssl={{ 'YES' if vsftpd_cfg.force_local_data_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_local_logins_ssl is defined -%}
-# Only applies if ssl_enable is activated.
-# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
-# to send the password.
-# Default: YES
-force_local_logins_ssl={{ 'YES' if vsftpd_cfg.force_local_logins_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.guest_enable is defined -%}
-# If enabled, all non-anonymous logins are classed as "guest" logins.
-# A guest login is remapped to the user specified in the guest_username setting.
-# Default: NO
-guest_enable={{ 'YES' if vsftpd_cfg.guest_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.hide_ids is defined -%}
-# If enabled, all user and group information in directory listings will be displayed as "ftp".
-# Default: NO
-hide_ids={{ 'YES' if vsftpd_cfg.hide_ids else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.implicit_ssl is defined -%}
-# If enabled, an SSL handshake is the first thing expect on all connections (the FTPS protocol).
-# To support explicit SSL and/or plain text too, a separate vsftpd listener process should be run.
-# Default: NO
-implicit_ssl={{ 'YES' if vsftpd_cfg.implicit_ssl else 'NO' }}
-{% endif -%}
-
 {% if vsftpd_cfg.listen is defined -%}
 # If enabled, vsftpd will run in standalone mode.
 # This means that vsftpd must not be run from an inetd of some kind.
@@ -253,6 +7,14 @@ implicit_ssl={{ 'YES' if vsftpd_cfg.implicit_ssl else 'NO' }}
 listen={{ 'YES' if vsftpd_cfg.listen else 'NO' }}
 {% endif -%}
 
+{% if vsftpd_cfg.listen_address is defined -%}
+# If vsftpd is in standalone mode,
+# the default listen address (of all local interfaces) may be overridden by this setting.
+# Provide a numeric IP address.
+# Default: (none)
+listen_address={{ vsftpd_cfg.listen_address }}
+{% endif -%}
+
 {% if vsftpd_cfg.listen_ipv6 is defined -%}
 # Like the listen parameter, except vsftpd will listen on an IPv6 socket instead of an IPv4 one.
 # This parameter and the listen parameter are mutually exclusive.
@@ -260,101 +22,81 @@ listen={{ 'YES' if vsftpd_cfg.listen else 'NO' }}
 listen_ipv6={{ 'YES' if vsftpd_cfg.listen_ipv6 else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.local_enable is defined -%}
-# Controls whether local logins are permitted or not.
-# If enabled, normal user accounts in /etc/passwd (or wherever your PAM config references)
-# may be used to log in.
-# This must be enable for any non-anonymous login to work, including virtual users.
+{% if vsftpd_cfg.listen_address6 is defined -%}
+# Like listen_address, but specifies a default listen address for the IPv6 listener (which is used if listen_ipv6 is set).
+# Format is standard IPv6 address format.
+# Default: (none)
+listen_address6={{ vsftpd_cfg.listen_address6 }}
+{% endif -%}
+
+{% if vsftpd_cfg.tcp_wrappers is defined -%}
+# If enabled, and vsftpd was compiled with tcp_wrappers support,
+# incoming connections will be fed through tcp_wrappers access control.
+# Furthermore, there is a mechanism for per-IP based configuration.
+# If tcp_wrappers sets the VSFTPD_LOAD_CONF environment variable,
+# then the vsftpd session will try and load the vsftpd configuration file specified in this variable.
 # Default: NO
-local_enable={{ 'YES' if vsftpd_cfg.local_enable else 'NO' }}
+tcp_wrappers={{ 'YES' if vsftpd_cfg.tcp_wrappers else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.lock_upload_files is defined -%}
-# When enabled, all uploads proceed with a write lock on the upload file.
-# All downloads proceed with a shared read lock on the download file.
-# WARNING!
-# Before enabling this, be aware that malicious readers could starve a writer wanting to e.g. append a file.
-# Default: YES
-lock_upload_files={{ 'YES' if vsftpd_cfg.lock_upload_files else 'NO' }}
+{% if vsftpd_cfg.banner_file is defined -%}
+# This option is the name of a file containing text to display when someone connects to the server.
+# If set, it overrides the banner string provided by the ftpd_banner option.
+# Default: (none)
+banner_file={{ vsftpd_cfg.banner_file }}
 {% endif -%}
 
-{% if vsftpd_cfg.log_ftp_protocol is defined -%}
-# When enabled, all FTP requests and responses are logged,
-# providing the option xferlog_std_format is not enabled.
-# Useful for debugging.
-# Default: NO
-log_ftp_protocol={{ 'YES' if vsftpd_cfg.log_ftp_protocol else 'NO' }}
+{% if vsftpd_cfg.ftpd_banner is defined -%}
+# This string option allows you to override the greeting banner displayed by vsftpd when a connection first comes in.
+# Default: (none - default vsftpd banner is displayed)
+ftpd_banner={{ vsftpd_cfg.ftpd_banner }}
 {% endif -%}
 
-{% if vsftpd_cfg.ls_recurse_enable is defined -%}
-# When enabled, this setting will allow the use of "ls -R". This is a minor security risk,
-# because a ls -R at the top level of a large site may consume a lot of resources.
-# Default: NO
-ls_recurse_enable={{ 'YES' if vsftpd_cfg.ls_recurse_enable else 'NO' }}
+{% if vsftpd_cfg.max_clients is defined -%}
+# If vsftpd is in standalone mode, this is the maximum number of clients which may be connected.
+# Any additional clients connecting will get an error message.
+# Default: 0 (unlimited)
+max_clients={{ vsftpd_cfg.max_clients }}
 {% endif -%}
 
-{% if vsftpd_cfg.mdtm_write is defined -%}
-# When enabled, this setting will allow MDTM to set file modification times
-# (subject to the usual access checks).
-# Default: YES
-mdtm_write={{ 'YES' if vsftpd_cfg.mdtm_write else 'NO' }}
+{% if vsftpd_cfg.max_per_ip is defined -%}
+# If vsftpd is in standalone mode,
+# this is the maximum number of clients which may be connected from the same source internet address.
+# A client will get an error message if they go over this limit.
+# Default: 0 (unlimited)
+max_per_ip={{ vsftpd_cfg.max_per_ip }}
 {% endif -%}
 
-{% if vsftpd_cfg.no_anon_password is defined -%}
-# When enabled, this prevents vsftpd from asking for an anonymous password
-# the anonymous user will log straight in.
-# Default: NO
-no_anon_password={{ 'YES' if vsftpd_cfg.no_anon_password else 'NO' }}
+{% if vsftpd_cfg.delay_failed_login is defined -%}
+# The number of seconds to pause prior to reporting a failed login.
+# Default: 1
+delay_failed_login={{ vsftpd_cfg.delay_failed_login }}
 {% endif -%}
 
-{% if vsftpd_cfg.no_log_lock is defined -%}
-# When enabled, this prevents vsftpd from taking a file lock when writing to log files.
-# This option should generally not be enabled.
-# It exists to workaround operating system bugs such as the Solaris / Veritas filesystem combination
-# which has been observed to sometimes exhibit hangs trying to lock log files.
-# Default: NO
-no_log_lock={{ 'YES' if vsftpd_cfg.no_log_lock else 'NO' }}
+{% if vsftpd_cfg.max_login_fails is defined -%}
+# After this many login failures, the session is killed.
+# Default: 3
+max_login_fails={{ vsftpd_cfg.max_login_fails }}
 {% endif -%}
 
-{% if vsftpd_cfg.one_process_model is defined -%}
-# If you have a Linux 2.4 kernel, it is possible to use a different security model which only uses one process per connection.
-# It is a less pure security model, but gains you performance.
-# You really don't want to enable this unless you know what you are doing,
-# and your site supports huge numbers of simultaneously connected users.
-# Default: NO
-one_process_model={{ 'YES' if vsftpd_cfg.one_process_model else 'NO' }}
+{% if vsftpd_cfg.delay_successful_login is defined -%}
+# The number of seconds to pause prior to allowing a successful login.
+# Default: 0
+delay_successful_login={{ vsftpd_cfg.delay_successful_login }}
 {% endif -%}
 
-{% if vsftpd_cfg.passwd_chroot_enable is defined -%}
-# If enabled, along with chroot_local_user ,
-# then a chroot() jail location may be specified on a per-user basis.
-# Each user's jail is derived from their home directory string in /etc/passwd.
-# The occurrence of /./ in the home directory string denotes that the jail is at
-# that particular location in the path.
-# Default: NO
-passwd_chroot_enable={{ 'YES' if vsftpd_cfg.passwd_chroot_enable else 'NO' }}
+{% if vsftpd_cfg.pam_service_name is defined -%}
+# This string is the name of the PAM service vsftpd will use.
+# Default: ftp
+pam_service_name={{ vsftpd_cfg.pam_service_name }}
 {% endif -%}
 
-{% if vsftpd_cfg.pasv_enable is defined -%}
-# Set to NO if you want to disallow the PASV method of obtaining a data connection.
-# Default: YES
-pasv_enable={{ 'YES' if vsftpd_cfg.pasv_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.pasv_addr_resolve is defined -%}
-# Set to YES if you want to use a hostname (as opposed to IP address) in the pasv_address option.
-# Default: NO
-pasv_addr_resolve={{ 'YES' if vsftpd_cfg.pasv_addr_resolve else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.pasv_promiscuous is defined -%}
-# Set to YES if you want to disable the PASV security check that ensures the data connection originates
-# from the same IP address as the control connection.
-# Only enable if you know what you are doing!
-# The only legitimate use for this is in some form of secure tunnelling scheme,
-# or perhaps to facilitate FXP support.
-# Default: NO
-pasv_promiscuous={{ 'YES' if vsftpd_cfg.pasv_promiscuous else 'NO' }}
+{% if vsftpd_cfg.nopriv_user is defined -%}
+# This is the name of the user that is used by vsftpd when it wants to be totally unprivileged.
+# Note that this should be a dedicated user, rather than nobody.
+# The user nobody tends to be used for rather a lot of important things on most machines.
+# Default: nobody
+nopriv_user={{ vsftpd_cfg.nopriv_user }}
 {% endif -%}
 
 {% if vsftpd_cfg.port_enable is defined -%}
@@ -371,48 +113,40 @@ port_enable={{ 'YES' if vsftpd_cfg.port_enable else 'NO' }}
 port_promiscuous={{ 'YES' if vsftpd_cfg.port_promiscuous else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.require_cert is defined -%}
-# If set to yes, all SSL client connections are required to present a client certificate.
-# The degree of validation applied to this certificate is controlled by validate_cert (Added in v2.0.6).
-# Default: NO
-require_cert={{ 'YES' if vsftpd_cfg.require_cert else 'NO' }}
+{% if vsftpd_cfg.connect_timeout is defined -%}
+# The timeout, in seconds, for a remote client to respond to our PORT style data connection.
+# Default: 60
+connect_timeout={{ vsftpd_cfg.connect_timeout }}
 {% endif -%}
 
-{% if vsftpd_cfg.require_ssl_reuse is defined -%}
-# If set to yes, all SSL data connections are required to exhibit SSL session reuse
-# (which proves that they know the same master secret as the control channel).
-# Although this is a secure default, it may break many FTP clients, so you may want to disable it.
-# For a discussion of the consequences,
-# see http://scarybeastsecurity.blogspot.com/2009/02/vsftpd-210-released.html (Added in v2.1.0).
-# Default: YES
-require_ssl_reuse={{ 'YES' if vsftpd_cfg.require_ssl_reuse else 'NO' }}
+{% if vsftpd_cfg.accept_timeout is defined -%}
+# The timeout, in seconds, for a remote client to establish connection with a PASV style data connection.
+# Default: 60
+accept_timeout={{ vsftpd_cfg.accept_timeout }}
 {% endif -%}
 
-{% if vsftpd_cfg.run_as_launching_user is defined -%}
-# Set to YES if you want vsftpd to run as the user which launched vsftpd.
-# This is useful where root access is not available.
-# MASSIVE WARNING! Do NOT enable this option unless you totally know what you are doing,
-# as naive use of this option can create massive security problems. Specifically,
-# vsftpd does not / cannot use chroot technology to restrict file access when this option is set (even if launched by root).
-# A poor substitute could be to use a deny_file setting such as {/*,*..*},
-# but the reliability of this cannot compare to chroot, and should not be relied on.
-# If using this option, many restrictions on other options apply.
-# For example, options requiring privilege such as non-anonymous logins, upload ownership changing,
-# connecting from port 20 and listen ports less than 1024 are not expected to work.
-# Other options may be impacted.
-# Default: NO
-run_as_launching_user={{ 'YES' if vsftpd_cfg.run_as_launching_user else 'NO' }}
+{% if vsftpd_cfg.data_connection_timeout is defined -%}
+# The timeout, in seconds, which is roughly the maximum time we permit data transfers to stall for with no progress.
+# If the timeout triggers, the remote client is kicked off.
+# Default: 300
+data_connection_timeout={{ vsftpd_cfg.data_connection_timeout }}
 {% endif -%}
 
-{% if vsftpd_cfg.secure_email_list_enable is defined -%}
-# Set to YES if you want only a specified list of e-mail passwords for anonymous logins to be accepted.
-# This is useful as a low-hassle way of restricting access to low-security content without needing virtual users.
-# When enabled, anonymous logins are prevented unless
-# the password provided is listed in the file specified by the email_password_file setting.
-# The file format is one password per line, no extra whitespace.
-# The default filename is /etc/vsftpd.email_passwords.
+{% if vsftpd_cfg.idle_session_timeout is defined -%}
+# The timeout, in seconds, which is the maximum time a remote client may spend between FTP commands.
+# If the timeout triggers, the remote client is kicked off.
+# Default: 300
+idle_session_timeout={{ vsftpd_cfg.idle_session_timeout }}
+{% endif -%}
+
+{% if vsftpd_cfg.async_abor_enable is defined -%}
+# When enabled, a special FTP command known as "async ABOR" will be enabled.
+# Only ill advised FTP clients will use this feature. Additionally,
+# this feature is awkward to handle, so it is disabled by default.
+# Unfortunately, some FTP clients will hang when cancelling a transfer unless
+# this feature is available, so you may wish to enable it.
 # Default: NO
-secure_email_list_enable={{ 'YES' if vsftpd_cfg.secure_email_list_enable else 'NO' }}
+async_abor_enable={{ 'YES' if vsftpd_cfg.async_abor_enable else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.session_support is defined -%}
@@ -434,88 +168,73 @@ session_support={{ 'YES' if vsftpd_cfg.session_support else 'NO' }}
 setproctitle_enable={{ 'YES' if vsftpd_cfg.setproctitle_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.ssl_enable is defined -%}
-# If enabled, and vsftpd was compiled against OpenSSL, vsftpd will support secure connections via SSL.
-# This applies to the control connection (including login) and also data connections.
-# You'll need a client with SSL support too. NOTE!! Beware enabling this option.
-# Only enable it if you need it. vsftpd can make no guarantees about the security of the OpenSSL libraries.
-# By enabling this option, you are declaring that you trust the security of your installed OpenSSL library.
-# Default: NO
-ssl_enable={{ 'YES' if vsftpd_cfg.ssl_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.ssl_request_cert is defined -%}
-# If enabled, vsftpd will request (but not necessarily require;
-# see require_cert)acertificateonincomingSSLconnections.Normallythis should not cause any trouble at all,
-# but IBM zOS seems to have issues. (New in v2.0.7).
+{% if vsftpd_cfg.download_enable is defined -%}
+# If set to NO, all download requests will give permission denied.
 # Default: YES
-ssl_request_cert={{ 'YES' if vsftpd_cfg.ssl_request_cert else 'NO' }}
+download_enable={{ 'YES' if vsftpd_cfg.download_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.ssl_sslv2 is defined -%}
-# Only applies if ssl_enable is activated.
-# If enabled, this option will permit SSL v2 protocol connections.
-# TLS v1 connections are preferred.
+{% if vsftpd_cfg.write_enable is defined -%}
+# This controls whether any FTP commands which change the filesystem are allowed or not.
+# These commands are: STOR, DELE, RNFR, RNTO, MKD, RMD, APPE and SITE.
 # Default: NO
-ssl_sslv2={{ 'YES' if vsftpd_cfg.ssl_sslv2 else 'NO' }}
+write_enable={{ 'YES' if vsftpd_cfg.write_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.ssl_sslv3 is defined -%}
-# Only applies if ssl_enable is activated.
-# If enabled, this option will permit SSL v3 protocol connections.
-# TLS v1 connections are preferred.
-# Default: NO
-ssl_sslv3={{ 'YES' if vsftpd_cfg.ssl_sslv3 else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.ssl_tlsv1 is defined -%}
-# Only applies if ssl_enable is activated.
-# If enabled, this option will permit TLS v1 protocol connections.
-# TLS v1 connections are preferred.
+{% if vsftpd_cfg.lock_upload_files is defined -%}
+# When enabled, all uploads proceed with a write lock on the upload file.
+# All downloads proceed with a shared read lock on the download file.
+# WARNING!
+# Before enabling this, be aware that malicious readers could starve a writer wanting to e.g. append a file.
 # Default: YES
-ssl_tlsv1={{ 'YES' if vsftpd_cfg.ssl_tlsv1 else 'NO' }}
+lock_upload_files={{ 'YES' if vsftpd_cfg.lock_upload_files else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.strict_ssl_read_eof is defined -%}
-# If enabled, SSL data uploads are required to terminate via SSL, not an EOF on the socket.
-# This option is required to be sure that an attacker did not terminate an upload prematurely with a faked TCP FIN. Unfortunately,
-# it is not enabled by default because so few clients get it right. (New in v2.0.7).
-# Default: NO
-strict_ssl_read_eof={{ 'YES' if vsftpd_cfg.strict_ssl_read_eof else 'NO' }}
+{% if vsftpd_cfg.chmod_enable is defined -%}
+# When enabled, allows use of the SITE CHMOD command.
+# NOTE! This only applies to local users. Anonymous users never get to use SITE CHMOD.
+# Default: YES
+chmod_enable={{ 'YES' if vsftpd_cfg.chmod_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.strict_ssl_write_shutdown is defined -%}
-# If enabled, SSL data downloads are required to terminate via SSL, not an EOF on the socket.
-# This is off by default as I was unable to find a single FTP client that does this. It is minor.
-# All it affects is our ability to tell whether the client confirmed full receipt of the file.
-# Even without this option, the client is able to check the integrity of the download. (New in v2.0.7).
-# Default: NO
-strict_ssl_write_shutdown={{ 'YES' if vsftpd_cfg.strict_ssl_write_shutdown else 'NO' }}
+{% if vsftpd_cfg.dirlist_enable is defined -%}
+# If set to NO, all directory list commands will give permission denied.
+# Default: YES
+dirlist_enable={{ 'YES' if vsftpd_cfg.dirlist_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.syslog_enable is defined -%}
-# If enabled, then any log output which would have gone to /var/log/vsftpd.log goes to the system log instead.
-# Logging is done under the FTPD facility.
-# Default: NO
-syslog_enable={{ 'YES' if vsftpd_cfg.syslog_enable else 'NO' }}
+{% if vsftpd_cfg.file_open_mode is defined -%}
+# The permissions with which uploaded files are created.
+# Umasks are applied on top of this value. You may wish to change to 0777
+# if you want uploaded files to be executable.
+# Default: 0666
+file_open_mode={{ vsftpd_cfg.file_open_mode }}
 {% endif -%}
 
-{% if vsftpd_cfg.tcp_wrappers is defined -%}
-# If enabled, and vsftpd was compiled with tcp_wrappers support,
-# incoming connections will be fed through tcp_wrappers access control.
-# Furthermore, there is a mechanism for per-IP based configuration.
-# If tcp_wrappers sets the VSFTPD_LOAD_CONF environment variable,
-# then the vsftpd session will try and load the vsftpd configuration file specified in this variable.
+{% if vsftpd_cfg.ls_recurse_enable is defined -%}
+# When enabled, this setting will allow the use of "ls -R". This is a minor security risk,
+# because a ls -R at the top level of a large site may consume a lot of resources.
 # Default: NO
-tcp_wrappers={{ 'YES' if vsftpd_cfg.tcp_wrappers else 'NO' }}
+ls_recurse_enable={{ 'YES' if vsftpd_cfg.ls_recurse_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.text_userdb_names is defined -%}
-# By default, numeric IDs are shown in the user and group fields of directory listings.
-# You can get textual names by enabling this parameter.
-# It is off by default for performance reasons.
+{% if vsftpd_cfg.ascii_download_enable is defined -%}
+# When enabled, ASCII mode data transfers will be honoured on downloads.
 # Default: NO
-text_userdb_names={{ 'YES' if vsftpd_cfg.text_userdb_names else 'NO' }}
+ascii_download_enable={{ 'YES' if vsftpd_cfg.ascii_download_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ascii_upload_enable is defined -%}
+# When enabled, ASCII mode data transfers will be honoured on uploads.
+# Default: NO
+ascii_upload_enable={{ 'YES' if vsftpd_cfg.ascii_upload_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.mdtm_write is defined -%}
+# When enabled, this setting will allow MDTM to set file modification times
+# (subject to the usual access checks).
+# Default: YES
+mdtm_write={{ 'YES' if vsftpd_cfg.mdtm_write else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.tilde_user_enable is defined -%}
@@ -527,253 +246,10 @@ text_userdb_names={{ 'YES' if vsftpd_cfg.text_userdb_names else 'NO' }}
 tilde_user_enable={{ 'YES' if vsftpd_cfg.tilde_user_enable else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.use_localtime is defined -%}
-# If enabled, vsftpd will display directory listings with the time in your local time zone.
-# The default is to display GMT.
-# The times returned by the MDTM FTP command are also affected by this option.
+{% if vsftpd_cfg.delete_failed_uploads is defined -%}
+# If true, any failed upload files are deleted. (Added in v2.0.7).
 # Default: NO
-use_localtime={{ 'YES' if vsftpd_cfg.use_localtime else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.use_sendfile is defined -%}
-# An internal setting used for testing the relative benefit of using the sendfile() system call on your platform.
-# Default: YES
-use_sendfile={{ 'YES' if vsftpd_cfg.use_sendfile else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.userlist_deny is defined -%}
-# This option is examined if userlist_enable is activated.
-# If you set this setting to NO, then users will be denied login unless they are explicitly listed in the file specified by userlist_file.
-# When login is denied, the denial is issued before the user is asked for a password.
-# Default: YES
-userlist_deny={{ 'YES' if vsftpd_cfg.userlist_deny else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.userlist_enable is defined -%}
-# If enabled, vsftpd will load a list of usernames, from the filename given by userlist_file.
-# If a user tries to log in using a name in this file, they will be denied before they are asked for a password.
-# This may be useful in preventing cleartext passwords being transmitted. See also userlist_deny.
-# Default: NO
-userlist_enable={{ 'YES' if vsftpd_cfg.userlist_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.validate_cert is defined -%}
-# If set to yes, all SSL client certificates received must validate OK.
-# Self-signed certs do not constitute OK validation. (New in v2.0.6).
-# Default: NO
-validate_cert={{ 'YES' if vsftpd_cfg.validate_cert else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.virtual_use_local_privs is defined -%}
-# If enabled, virtual users will use the same privileges as local users.
-# By default, virtual users will use the same privileges as anonymous users,
-# which tends to be more restrictive (especially in terms of write access).
-# Default: NO
-virtual_use_local_privs={{ 'YES' if vsftpd_cfg.virtual_use_local_privs else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.write_enable is defined -%}
-# This controls whether any FTP commands which change the filesystem are allowed or not.
-# These commands are: STOR, DELE, RNFR, RNTO, MKD, RMD, APPE and SITE.
-# Default: NO
-write_enable={{ 'YES' if vsftpd_cfg.write_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.xferlog_enable is defined -%}
-# If enabled, a log file will be maintained detailling uploads and downloads.
-# By default, this file will be placed at /var/log/vsftpd.log,
-# but this location may be overridden using the configuration setting vsftpd_log_file.
-# Default: NO (but the sample config file enables it)
-xferlog_enable={{ 'YES' if vsftpd_cfg.xferlog_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.xferlog_std_format is defined -%}
-# If enabled, the transfer log file will be written in standard xferlog format, as used by wu-ftpd.
-# This is useful because you can reuse existing transfer statistics generators.
-# The default format is more readable, however.
-# The default location for this style of log file is /var/log/xferlog,
-# but you may change it with the setting xferlog_file.
-# Default: NO
-xferlog_std_format={{ 'YES' if vsftpd_cfg.xferlog_std_format else 'NO' }}
-{% endif -%}
-
-###################################
-# NUMERIC OPTIONS
-###################################
-
-{% if vsftpd_cfg.accept_timeout is defined -%}
-# The timeout, in seconds, for a remote client to establish connection with a PASV style data connection.
-# Default: 60
-accept_timeout={{ vsftpd_cfg.accept_timeout }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_max_rate is defined -%}
-# The maximum data transfer rate permitted, in bytes per second, for anonymous clients.
-# Default: 0 (unlimited)
-anon_max_rate={{ vsftpd_cfg.anon_max_rate }}
-{% endif -%}
-
-{% if vsftpd_cfg.anon_umask is defined -%}
-# The value that the umask for file creation is set to for anonymous users.
-# NOTE! If you want to specify octal values,
-# remember the "0" prefix otherwise the value will be treated as a base 10 integer!
-# Default: 077
-anon_umask={{ vsftpd_cfg.anon_umask }}
-{% endif -%}
-
-{% if vsftpd_cfg.chown_upload_mode is defined -%}
-# The file mode to force for chown()ed anonymous uploads. (Added in v2.0.6).
-# Default: 0600
-chown_upload_mode={{ vsftpd_cfg.chown_upload_mode }}
-{% endif -%}
-
-{% if vsftpd_cfg.connect_timeout is defined -%}
-# The timeout, in seconds, for a remote client to respond to our PORT style data connection.
-# Default: 60
-connect_timeout={{ vsftpd_cfg.connect_timeout }}
-{% endif -%}
-
-{% if vsftpd_cfg.data_connection_timeout is defined -%}
-# The timeout, in seconds, which is roughly the maximum time we permit data transfers to stall for with no progress.
-# If the timeout triggers, the remote client is kicked off.
-# Default: 300
-data_connection_timeout={{ vsftpd_cfg.data_connection_timeout }}
-{% endif -%}
-
-{% if vsftpd_cfg.delay_failed_login is defined -%}
-# The number of seconds to pause prior to reporting a failed login.
-# Default: 1
-delay_failed_login={{ vsftpd_cfg.delay_failed_login }}
-{% endif -%}
-
-{% if vsftpd_cfg.delay_successful_login is defined -%}
-# The number of seconds to pause prior to allowing a successful login.
-# Default: 0
-delay_successful_login={{ vsftpd_cfg.delay_successful_login }}
-{% endif -%}
-
-{% if vsftpd_cfg.file_open_mode is defined -%}
-# The permissions with which uploaded files are created.
-# Umasks are applied on top of this value. You may wish to change to 0777
-# if you want uploaded files to be executable.
-# Default: 0666
-file_open_mode={{ vsftpd_cfg.file_open_mode }}
-{% endif -%}
-
-{% if vsftpd_cfg.ftp_data_port is defined -%}
-# The port from which PORT style connections originate
-# (as long as the poorly named connect_from_port_20 is enabled).
-# Default: 20
-ftp_data_port={{ vsftpd_cfg.ftp_data_port }}
-{% endif -%}
-
-{% if vsftpd_cfg.idle_session_timeout is defined -%}
-# The timeout, in seconds, which is the maximum time a remote client may spend between FTP commands.
-# If the timeout triggers, the remote client is kicked off.
-# Default: 300
-idle_session_timeout={{ vsftpd_cfg.idle_session_timeout }}
-{% endif -%}
-
-{% if vsftpd_cfg.listen_port is defined -%}
-# If vsftpd is in standalone mode, this is the port it will listen on for incoming FTP connections.
-# Default: 21
-listen_port={{ vsftpd_cfg.listen_port }}
-{% endif -%}
-
-{% if vsftpd_cfg.local_max_rate is defined -%}
-# The maximum data transfer rate permitted, in bytes per second, for local authenticated users.
-# Default: 0 (unlimited)
-local_max_rate={{ vsftpd_cfg.local_max_rate }}
-{% endif -%}
-
-{% if vsftpd_cfg.local_umask is defined -%}
-# The value that the umask for file creation is set to for local users.
-# NOTE! If you want to specify octal values,
-# remember the "0" prefix otherwise the value will be treated as a base 10 integer!
-# Default: 077
-local_umask={{ vsftpd_cfg.local_umask }}
-{% endif -%}
-
-{% if vsftpd_cfg.max_clients is defined -%}
-# If vsftpd is in standalone mode, this is the maximum number of clients which may be connected.
-# Any additional clients connecting will get an error message.
-# Default: 0 (unlimited)
-max_clients={{ vsftpd_cfg.max_clients }}
-{% endif -%}
-
-{% if vsftpd_cfg.max_login_fails is defined -%}
-# After this many login failures, the session is killed.
-# Default: 3
-max_login_fails={{ vsftpd_cfg.max_login_fails }}
-{% endif -%}
-
-{% if vsftpd_cfg.max_per_ip is defined -%}
-# If vsftpd is in standalone mode,
-# this is the maximum number of clients which may be connected from the same source internet address.
-# A client will get an error message if they go over this limit.
-# Default: 0 (unlimited)
-max_per_ip={{ vsftpd_cfg.max_per_ip }}
-{% endif -%}
-
-{% if vsftpd_cfg.pasv_max_port is defined -%}
-# The maximum port to allocate for PASV style data connections.
-# Can be used to specify a narrow port range to assist firewalling.
-# Default: 0 (use any port)
-pasv_max_port={{ vsftpd_cfg.pasv_max_port }}
-{% endif -%}
-
-{% if vsftpd_cfg.pasv_min_port is defined -%}
-# The minimum port to allocate for PASV style data connections.
-# Can be used to specify a narrow port range to assist firewalling.
-# Default: 0 (use any port)
-pasv_min_port={{ vsftpd_cfg.pasv_min_port }}
-{% endif -%}
-
-{% if vsftpd_cfg.trans_chunk_size is defined -%}
-# You probably don't want to change this,
-# but try setting it to something like 8192 for a much smoother bandwidth limiter.
-# Default: 0 (let vsftpd pick a sensible setting)
-trans_chunk_size={{ vsftpd_cfg.trans_chunk_size }}
-{% endif -%}
-
-###################################
-# STRING OPTIONS
-###################################
-
-{% if vsftpd_cfg.anon_root is defined -%}
-# This option represents a directory which vsftpd will try to change into after an anonymous login.
-# Failure is silently ignored.
-# Default: (none)
-anon_root={{ vsftpd_cfg.anon_root }}
-{% endif -%}
-
-{% if vsftpd_cfg.banned_email_file is defined -%}
-# This option is the name of a file containing a list of anonymous e-mail passwords which are not permitted.
-# This file is consulted if the option deny_email_enable is enabled.
-# Default: /etc/vsftpd.banned_emails
-banned_email_file={{ vsftpd_cfg.banned_email_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.banner_file is defined -%}
-# This option is the name of a file containing text to display when someone connects to the server.
-# If set, it overrides the banner string provided by the ftpd_banner option.
-# Default: (none)
-banner_file={{ vsftpd_cfg.banner_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.ca_certs_file is defined -%}
-# This option is the name of a file to load Certificate Authority certs from,
-# for the purpose of validating client certs. Regrettably, the default SSL CA cert paths are not used,
-# because of vsftpd's use of restricted filesystem spaces (chroot). (Added in v2.0.6).
-# Default: (none)
-ca_certs_file={{ vsftpd_cfg.ca_certs_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.chown_username is defined -%}
-# This is the name of the user who is given ownership of anonymously uploaded files.
-# This option is only relevant if another option, chown_uploads, is set.
-# Default: root
-chown_username={{ vsftpd_cfg.chown_username }}
+delete_failed_uploads={{ 'YES' if vsftpd_cfg.delete_failed_uploads else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.cmds_allowed is defined -%}
@@ -817,45 +293,6 @@ cmds_denied={{ vsftpd_cfg.cmds_denied if vsftpd_cfg.cmds_denied is string else v
 deny_file={{ vsftpd_cfg.deny_file }}
 {% endif -%}
 
-{% if vsftpd_cfg.dsa_cert_file is defined -%}
-# This option specifies the location of the DSA certificate to use for SSL encrypted connections.
-# Default: (none - an RSA certificate suffices)
-dsa_cert_file={{ vsftpd_cfg.dsa_cert_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.dsa_private_key_file is defined -%}
-# This option specifies the location of the DSA private key to use for SSL encrypted connections.
-# If this option is not set, the private key is expected to be in the same file as the certificate.
-# Default: (none)
-dsa_private_key_file={{ vsftpd_cfg.dsa_private_key_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.email_password_file is defined -%}
-# This option can be used to provide an alternate file for usage by the secure_email_list_enable setting.
-# Default: /etc/vsftpd.email_passwords
-email_password_file={{ vsftpd_cfg.email_password_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.ftp_username is defined -%}
-# This is the name of the user we use for handling anonymous FTP.
-# The home directory of this user is the root of the anonymous FTP area.
-# Default: ftp
-ftp_username={{ vsftpd_cfg.ftp_username }}
-{% endif -%}
-
-{% if vsftpd_cfg.ftpd_banner is defined -%}
-# This string option allows you to override the greeting banner displayed by vsftpd when a connection first comes in.
-# Default: (none - default vsftpd banner is displayed)
-ftpd_banner={{ vsftpd_cfg.ftpd_banner }}
-{% endif -%}
-
-{% if vsftpd_cfg.guest_username is defined -%}
-# See the boolean setting guest_enable for a description of what constitutes a guest login.
-# This setting is the real username which guest users are mapped to.
-# Default: ftp
-guest_username={{ vsftpd_cfg.guest_username }}
-{% endif -%}
-
 {% if vsftpd_cfg.hide_file is defined -%}
 # This option can be used to set a pattern for filenames (and directory names etc.)
 # which should be hidden from directory listings. Despite being hidden,
@@ -869,26 +306,32 @@ guest_username={{ vsftpd_cfg.guest_username }}
 hide_file={{ vsftpd_cfg.hide_file }}
 {% endif -%}
 
-{% if vsftpd_cfg.listen_address is defined -%}
-# If vsftpd is in standalone mode,
-# the default listen address (of all local interfaces) may be overridden by this setting.
-# Provide a numeric IP address.
-# Default: (none)
-listen_address={{ vsftpd_cfg.listen_address }}
+{% if vsftpd_cfg.hide_ids is defined -%}
+# If enabled, all user and group information in directory listings will be displayed as "ftp".
+# Default: NO
+hide_ids={{ 'YES' if vsftpd_cfg.hide_ids else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.listen_address6 is defined -%}
-# Like listen_address, but specifies a default listen address for the IPv6 listener (which is used if listen_ipv6 is set).
-# Format is standard IPv6 address format.
-# Default: (none)
-listen_address6={{ vsftpd_cfg.listen_address6 }}
+{% if vsftpd_cfg.background is defined -%}
+# When enabled, and vsftpd is started in "listen" mode, vsftpd will background the listener process.
+# i.e. control will immediately be returned to the shell which launched vsftpd.
+# Default: NO
+background={{ 'YES' if vsftpd_cfg.background else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.local_root is defined -%}
-# This option represents a directory which vsftpd will try to change into after a local (i.e. non-anonymous) login.
-# Failure is silently ignored.
-# Default: (none)
-local_root={{ vsftpd_cfg.local_root }}
+{% if vsftpd_cfg.check_shell is defined -%}
+# Note! This option only has an effect for non-PAM builds of vsftpd.
+# If disabled, vsftpd will not check /etc/shells for a valid user shell for local logins.
+# Default: YES
+check_shell={{ 'YES' if vsftpd_cfg.check_shell else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.dirmessage_enable is defined -%}
+# If enabled, users of the FTP server can be shown messages when they first enter a new directory.
+# By default, a directory is scanned for the file .message,
+# but that may be overridden with the configuration setting message_file.
+# Default: NO (but the sample config file enables it)
+dirmessage_enable={{ 'YES' if vsftpd_cfg.dirmessage_enable else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.message_file is defined -%}
@@ -899,38 +342,94 @@ local_root={{ vsftpd_cfg.local_root }}
 message_file={{ vsftpd_cfg.message_file }}
 {% endif -%}
 
-{% if vsftpd_cfg.nopriv_user is defined -%}
-# This is the name of the user that is used by vsftpd when it wants to be totally unprivileged.
-# Note that this should be a dedicated user, rather than nobody.
-# The user nobody tends to be used for rather a lot of important things on most machines.
-# Default: nobody
-nopriv_user={{ vsftpd_cfg.nopriv_user }}
+
+{% if vsftpd_cfg.force_dot_files is defined -%}
+# If activated, files and directories starting with .
+# will be shown in directory listings even if the "a" flag was not used by the client.
+# This override excludes the "." and ".." entries.
+# Default: NO
+force_dot_files={{ 'YES' if vsftpd_cfg.force_dot_files else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.pam_service_name is defined -%}
-# This string is the name of the PAM service vsftpd will use.
+{% if vsftpd_cfg.text_userdb_names is defined -%}
+# By default, numeric IDs are shown in the user and group fields of directory listings.
+# You can get textual names by enabling this parameter.
+# It is off by default for performance reasons.
+# Default: NO
+text_userdb_names={{ 'YES' if vsftpd_cfg.text_userdb_names else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.use_localtime is defined -%}
+# If enabled, vsftpd will display directory listings with the time in your local time zone.
+# The default is to display GMT.
+# The times returned by the MDTM FTP command are also affected by this option.
+# Default: NO
+use_localtime={{ 'YES' if vsftpd_cfg.use_localtime else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.use_sendfile is defined -%}
+# An internal setting used for testing the relative benefit of using the sendfile() system call on your platform.
+# Default: YES
+use_sendfile={{ 'YES' if vsftpd_cfg.use_sendfile else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.virtual_use_local_privs is defined -%}
+# If enabled, virtual users will use the same privileges as local users.
+# By default, virtual users will use the same privileges as anonymous users,
+# which tends to be more restrictive (especially in terms of write access).
+# Default: NO
+virtual_use_local_privs={{ 'YES' if vsftpd_cfg.virtual_use_local_privs else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.listen_port is defined -%}
+# If vsftpd is in standalone mode, this is the port it will listen on for incoming FTP connections.
+# Default: 21
+listen_port={{ vsftpd_cfg.listen_port }}
+{% endif -%}
+
+{% if vsftpd_cfg.connect_from_port_20 is defined -%}
+# This controls whether PORT style data connections use port 20 (ftp-data) on the server machine.
+# For security reasons, some clients may insist that this is the case.
+# Conversely, disabling this option enables vsftpd to run with slightly less privilege.
+# Default: NO (but the sample config file enables it)
+connect_from_port_20={{ 'YES' if vsftpd_cfg.connect_from_port_20 else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ftp_data_port is defined -%}
+# The port from which PORT style connections originate
+# (as long as the poorly named connect_from_port_20 is enabled).
+# Default: 20
+ftp_data_port={{ vsftpd_cfg.ftp_data_port }}
+{% endif -%}
+
+{% if vsftpd_cfg.guest_enable is defined -%}
+# If enabled, all non-anonymous logins are classed as "guest" logins.
+# A guest login is remapped to the user specified in the guest_username setting.
+# Default: NO
+guest_enable={{ 'YES' if vsftpd_cfg.guest_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.guest_username is defined -%}
+# See the boolean setting guest_enable for a description of what constitutes a guest login.
+# This setting is the real username which guest users are mapped to.
 # Default: ftp
-pam_service_name={{ vsftpd_cfg.pam_service_name }}
+guest_username={{ vsftpd_cfg.guest_username }}
 {% endif -%}
 
-{% if vsftpd_cfg.pasv_address is defined -%}
-# Use this option to override the IP address that vsftpd will advertise in response to the PASV command.
-# Provide a numeric IP address, unless pasv_addr_resolve is enabled, in which case you can provide a hostname which will be DNS resolved for you at startup.
-# Default: (none - the address is taken from the incoming connected socket)
-pasv_address={{ vsftpd_cfg.pasv_address }}
+{% if vsftpd_cfg.one_process_model is defined -%}
+# If you have a Linux 2.4 kernel, it is possible to use a different security model which only uses one process per connection.
+# It is a less pure security model, but gains you performance.
+# You really don't want to enable this unless you know what you are doing,
+# and your site supports huge numbers of simultaneously connected users.
+# Default: NO
+one_process_model={{ 'YES' if vsftpd_cfg.one_process_model else 'NO' }}
 {% endif -%}
 
-{% if vsftpd_cfg.rsa_cert_file is defined -%}
-# This option specifies the location of the RSA certificate to use for SSL encrypted connections.
-# Default: /usr/share/ssl/certs/vsftpd.pem
-rsa_cert_file={{ vsftpd_cfg.rsa_cert_file }}
-{% endif -%}
-
-{% if vsftpd_cfg.rsa_private_key_file is defined -%}
-# This option specifies the location of the RSA private key to use for SSL encrypted connections.
-# If this option is not set, the private key is expected to be in the same file as the certificate.
-# Default: (none)
-rsa_private_key_file={{ vsftpd_cfg.rsa_private_key_file }}
+{% if vsftpd_cfg.trans_chunk_size is defined -%}
+# You probably don't want to change this,
+# but try setting it to something like 8192 for a much smoother bandwidth limiter.
+# Default: 0 (let vsftpd pick a sensible setting)
+trans_chunk_size={{ vsftpd_cfg.trans_chunk_size }}
 {% endif -%}
 
 {% if vsftpd_cfg.secure_chroot_dir is defined -%}
@@ -939,14 +438,6 @@ rsa_private_key_file={{ vsftpd_cfg.rsa_private_key_file }}
 # This directory is used as a secure chroot() jail at times vsftpd does not require filesystem access.
 # Default: /usr/share/empty
 secure_chroot_dir={{ vsftpd_cfg.secure_chroot_dir }}
-{% endif -%}
-
-{% if vsftpd_cfg.ssl_ciphers is defined -%}
-# This option can be used to select which SSL ciphers vsftpd will allow for encrypted SSL connections.
-# See the ciphers man page for further details.
-# Note that restricting ciphers can be a useful security precaution as it prevents malicious remote parties forcing a cipher which they have found problems with.
-# Default: DES-CBC3-SHA
-ssl_ciphers={{ vsftpd_cfg.ssl_ciphers }}
 {% endif -%}
 
 {% if vsftpd_cfg.user_config_dir is defined -%}
@@ -974,10 +465,499 @@ user_config_dir={{ vsftpd_cfg.user_config_dir }}
 user_sub_token={{ vsftpd_cfg.user_sub_token }}
 {% endif -%}
 
+{% if vsftpd_cfg.run_as_launching_user is defined -%}
+# Set to YES if you want vsftpd to run as the user which launched vsftpd.
+# This is useful where root access is not available.
+# MASSIVE WARNING! Do NOT enable this option unless you totally know what you are doing,
+# as naive use of this option can create massive security problems. Specifically,
+# vsftpd does not / cannot use chroot technology to restrict file access when this option is set (even if launched by root).
+# A poor substitute could be to use a deny_file setting such as {/*,*..*},
+# but the reliability of this cannot compare to chroot, and should not be relied on.
+# If using this option, many restrictions on other options apply.
+# For example, options requiring privilege such as non-anonymous logins, upload ownership changing,
+# connecting from port 20 and listen ports less than 1024 are not expected to work.
+# Other options may be impacted.
+# Default: NO
+run_as_launching_user={{ 'YES' if vsftpd_cfg.run_as_launching_user else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.require_cert is defined -%}
+# If set to yes, all SSL client connections are required to present a client certificate.
+# The degree of validation applied to this certificate is controlled by validate_cert (Added in v2.0.6).
+# Default: NO
+require_cert={{ 'YES' if vsftpd_cfg.require_cert else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.validate_cert is defined -%}
+# If set to yes, all SSL client certificates received must validate OK.
+# Self-signed certs do not constitute OK validation. (New in v2.0.6).
+# Default: NO
+validate_cert={{ 'YES' if vsftpd_cfg.validate_cert else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ca_certs_file is defined -%}
+# This option is the name of a file to load Certificate Authority certs from,
+# for the purpose of validating client certs. Regrettably, the default SSL CA cert paths are not used,
+# because of vsftpd's use of restricted filesystem spaces (chroot). (Added in v2.0.6).
+# Default: (none)
+ca_certs_file={{ vsftpd_cfg.ca_certs_file }}
+{% endif -%}
+
+## --------------------
+## PASV
+## --------------------
+
+{% if vsftpd_cfg.pasv_enable is defined -%}
+# Set to NO if you want to disallow the PASV method of obtaining a data connection.
+# Default: YES
+pasv_enable={{ 'YES' if vsftpd_cfg.pasv_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.pasv_addr_resolve is defined -%}
+# Set to YES if you want to use a hostname (as opposed to IP address) in the pasv_address option.
+# Default: NO
+pasv_addr_resolve={{ 'YES' if vsftpd_cfg.pasv_addr_resolve else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.pasv_promiscuous is defined -%}
+# Set to YES if you want to disable the PASV security check that ensures the data connection originates
+# from the same IP address as the control connection.
+# Only enable if you know what you are doing!
+# The only legitimate use for this is in some form of secure tunnelling scheme,
+# or perhaps to facilitate FXP support.
+# Default: NO
+pasv_promiscuous={{ 'YES' if vsftpd_cfg.pasv_promiscuous else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.pasv_min_port is defined -%}
+# The minimum port to allocate for PASV style data connections.
+# Can be used to specify a narrow port range to assist firewalling.
+# Default: 0 (use any port)
+pasv_min_port={{ vsftpd_cfg.pasv_min_port }}
+{% endif -%}
+
+{% if vsftpd_cfg.pasv_max_port is defined -%}
+# The maximum port to allocate for PASV style data connections.
+# Can be used to specify a narrow port range to assist firewalling.
+# Default: 0 (use any port)
+pasv_max_port={{ vsftpd_cfg.pasv_max_port }}
+{% endif -%}
+
+
+{% if vsftpd_cfg.pasv_address is defined -%}
+# Use this option to override the IP address that vsftpd will advertise in response to the PASV command.
+# Provide a numeric IP address, unless pasv_addr_resolve is enabled, in which case you can provide a hostname which will be DNS resolved for you at startup.
+# Default: (none - the address is taken from the incoming connected socket)
+pasv_address={{ vsftpd_cfg.pasv_address }}
+{% endif -%}
+
+## --------------------
+## Anonymous User setting
+## --------------------
+
+{% if vsftpd_cfg.anonymous_enable is defined -%}
+# Controls whether anonymous logins are permitted or not.
+# If enabled, both the usernames ftp and anonymous are recognised as anonymous logins.
+# Default: YES
+anonymous_enable={{ 'YES' if vsftpd_cfg.anonymous_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_root is defined -%}
+# This option represents a directory which vsftpd will try to change into after an anonymous login.
+# Failure is silently ignored.
+# Default: (none)
+anon_root={{ vsftpd_cfg.anon_root }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_mkdir_write_enable is defined -%}
+# If set to YES, anonymous users will be permitted to create new directories under certain conditions.
+# For this to work, the option write_enable must be activated,
+# and the anonymous ftp user must have write permission on the parent directory.
+# Default: NO
+anon_mkdir_write_enable={{ 'YES' if vsftpd_cfg.anon_mkdir_write_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_other_write_enable is defined -%}
+# If set to YES, anonymous users will be permitted to perform write operations other than
+# upload and create directory, such as deletion and renaming.
+# This is generally not recommended but included for completeness.
+# Default: NO
+anon_other_write_enable={{ 'YES' if vsftpd_cfg.anon_other_write_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_upload_enable is defined -%}
+# If set to YES, anonymous users will be permitted to upload files under certain conditions.
+# For this to work, the option write_enable must be activated,
+# and the anonymous ftp user must have write permission on desired upload locations.
+# This setting is also required for virtual users to upload; by default,
+# virtual users are treated with anonymous (i.e. maximally restricted) privilege.
+# Default: NO
+anon_upload_enable={{ 'YES' if vsftpd_cfg.anon_upload_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_world_readable_only is defined -%}
+# When enabled, anonymous users will only be allowed to download files which are world readable.
+# This is recognising that the ftp user may own files, especially in the presence of uploads.
+# Default: YES
+anon_world_readable_only={{ 'YES' if vsftpd_cfg.anon_world_readable_only else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_max_rate is defined -%}
+# The maximum data transfer rate permitted, in bytes per second, for anonymous clients.
+# Default: 0 (unlimited)
+anon_max_rate={{ vsftpd_cfg.anon_max_rate }}
+{% endif -%}
+
+{% if vsftpd_cfg.anon_umask is defined -%}
+# The value that the umask for file creation is set to for anonymous users.
+# NOTE! If you want to specify octal values,
+# remember the "0" prefix otherwise the value will be treated as a base 10 integer!
+# Default: 077
+anon_umask={{ vsftpd_cfg.anon_umask }}
+{% endif -%}
+
+{% if vsftpd_cfg.ftp_username is defined -%}
+# This is the name of the user we use for handling anonymous FTP.
+# The home directory of this user is the root of the anonymous FTP area.
+# Default: ftp
+ftp_username={{ vsftpd_cfg.ftp_username }}
+{% endif -%}
+
+{% if vsftpd_cfg.chown_uploads is defined -%}
+# If enabled, all anonymously uploaded files will have the ownership changed to the
+# user specified in the setting chown_username.
+# This is useful from an administrative, and perhaps security, standpoint.
+# Default: NO
+chown_uploads={{ 'YES' if vsftpd_cfg.chmod_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.chown_username is defined -%}
+# This is the name of the user who is given ownership of anonymously uploaded files.
+# This option is only relevant if another option, chown_uploads, is set.
+# Default: root
+chown_username={{ vsftpd_cfg.chown_username }}
+{% endif -%}
+
+{% if vsftpd_cfg.chown_upload_mode is defined -%}
+# The file mode to force for chown()ed anonymous uploads. (Added in v2.0.6).
+# Default: 0600
+chown_upload_mode={{ vsftpd_cfg.chown_upload_mode }}
+{% endif -%}
+
+{% if vsftpd_cfg.secure_email_list_enable is defined -%}
+# Set to YES if you want only a specified list of e-mail passwords for anonymous logins to be accepted.
+# This is useful as a low-hassle way of restricting access to low-security content without needing virtual users.
+# When enabled, anonymous logins are prevented unless
+# the password provided is listed in the file specified by the email_password_file setting.
+# The file format is one password per line, no extra whitespace.
+# The default filename is /etc/vsftpd.email_passwords.
+# Default: NO
+secure_email_list_enable={{ 'YES' if vsftpd_cfg.secure_email_list_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.no_anon_password is defined -%}
+# When enabled, this prevents vsftpd from asking for an anonymous password
+# the anonymous user will log straight in.
+# Default: NO
+no_anon_password={{ 'YES' if vsftpd_cfg.no_anon_password else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.email_password_file is defined -%}
+# This option can be used to provide an alternate file for usage by the secure_email_list_enable setting.
+# Default: /etc/vsftpd.email_passwords
+email_password_file={{ vsftpd_cfg.email_password_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.deny_email_enable is defined -%}
+# If activated, you may provide a list of anonymous password e-mail responses
+# which cause login to be denied.
+# By default, the file containing this list is /etc/vsftpd.banned_emails,
+# but you may override this with the banned_email_file setting.
+# Default: NO
+deny_email_enable={{ 'YES' if vsftpd_cfg.deny_email_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.banned_email_file is defined -%}
+# This option is the name of a file containing a list of anonymous e-mail passwords which are not permitted.
+# This file is consulted if the option deny_email_enable is enabled.
+# Default: /etc/vsftpd.banned_emails
+banned_email_file={{ vsftpd_cfg.banned_email_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.allow_anon_ssl is defined -%}
+# Only applies if ssl_enable is active. If set to YES,
+# anonymous users will be allowed to use secured SSL connections.
+# Default: NO
+allow_anon_ssl={{ 'YES' if vsftpd_cfg.allow_anon_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_anon_data_ssl is defined -%}
+# Only applies if ssl_enable is activated. If activated,
+# all anonymous logins are forced to use a secure SSL connection in order
+# to send and receive data on data connections.
+# Default: NO
+force_anon_data_ssl={{ 'YES' if vsftpd_cfg.force_anon_data_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_anon_logins_ssl is defined -%}
+# Only applies if ssl_enable is activated. If activated,
+# all anonymous logins are forced to use a secure SSL connection in order to send the password.
+# Default: NO
+force_anon_logins_ssl={{ 'YES' if vsftpd_cfg.force_anon_logins_ssl else 'NO' }}
+{% endif -%}
+
+## --------------------
+## Local User Setting
+## --------------------
+
+{% if vsftpd_cfg.local_enable is defined -%}
+# Controls whether local logins are permitted or not.
+# If enabled, normal user accounts in /etc/passwd (or wherever your PAM config references)
+# may be used to log in.
+# This must be enable for any non-anonymous login to work, including virtual users.
+# Default: NO
+local_enable={{ 'YES' if vsftpd_cfg.local_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.local_root is defined -%}
+# This option represents a directory which vsftpd will try to change into after a local (i.e. non-anonymous) login.
+# Failure is silently ignored.
+# Default: (none)
+local_root={{ vsftpd_cfg.local_root }}
+{% endif -%}
+
+{% if vsftpd_cfg.local_max_rate is defined -%}
+# The maximum data transfer rate permitted, in bytes per second, for local authenticated users.
+# Default: 0 (unlimited)
+local_max_rate={{ vsftpd_cfg.local_max_rate }}
+{% endif -%}
+
+{% if vsftpd_cfg.local_umask is defined -%}
+# The value that the umask for file creation is set to for local users.
+# NOTE! If you want to specify octal values,
+# remember the "0" prefix otherwise the value will be treated as a base 10 integer!
+# Default: 077
+local_umask={{ vsftpd_cfg.local_umask }}
+{% endif -%}
+
+{% if vsftpd_cfg.userlist_enable is defined -%}
+# If enabled, vsftpd will load a list of usernames, from the filename given by userlist_file.
+# If a user tries to log in using a name in this file, they will be denied before they are asked for a password.
+# This may be useful in preventing cleartext passwords being transmitted. See also userlist_deny.
+# Default: NO
+userlist_enable={{ 'YES' if vsftpd_cfg.userlist_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.userlist_deny is defined -%}
+# This option is examined if userlist_enable is activated.
+# If you set this setting to NO, then users will be denied login unless they are explicitly listed in the file specified by userlist_file.
+# When login is denied, the denial is issued before the user is asked for a password.
+# Default: YES
+userlist_deny={{ 'YES' if vsftpd_cfg.userlist_deny else 'NO' }}
+{% endif -%}
+
 {% if vsftpd_cfg.userlist_file is defined -%}
 # This option is the name of the file loaded when the userlist_enable option is active.
 # Default: /etc/vsftpd.user_list
 userlist_file={{ vsftpd_cfg.userlist_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.chroot_local_user is defined -%}
+# If set to YES, local users will be (by default) placed in a chroot() jail in
+# their home directory after login.
+# Warning: This option has security implications, especially
+# if the users have upload permission, or shell access.
+# Only enable if you know what you are doing. Note that these security implications are not vsftpd specific.
+# They apply to all FTP daemons which offer to put local users in chroot() jails.
+# Default: NO
+chroot_local_user={{ 'YES' if vsftpd_cfg.chroot_local_user else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.chroot_list_enable is defined -%}
+# If activated, you may provide a list of local users who are placed in a chroot() jail in
+# their home directory upon login.
+# The meaning is slightly different if chroot_local_user is set to YES.
+# In this case, the list becomes a list of users which are NOT to be placed in a chroot() jail.
+# By default, the file containing this list is /etc/vsftpd.chroot_list,
+# but you may override this with the chroot_list_file setting.
+# Default: NO
+chroot_list_enable={{ 'YES' if vsftpd_cfg.chroot_list_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.chroot_list_file is defined -%}
+# The option is the name of a file containing a list of local users which will be placed in a chroot() jail in their home directory.
+# This option is only relevant if the option chroot_list_enable is enabled.
+# If the option chroot_local_user is enabled,
+# then the list file becomes a list of users to NOT place in a chroot() jail.
+# Default: /etc/vsftpd.chroot_list
+chroot_list_file={{ vsftpd_cfg.chroot_list_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.passwd_chroot_enable is defined -%}
+# If enabled, along with chroot_local_user ,
+# then a chroot() jail location may be specified on a per-user basis.
+# Each user's jail is derived from their home directory string in /etc/passwd.
+# The occurrence of /./ in the home directory string denotes that the jail is at
+# that particular location in the path.
+# Default: NO
+passwd_chroot_enable={{ 'YES' if vsftpd_cfg.passwd_chroot_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_local_data_ssl is defined -%}
+# Only applies if ssl_enable is activated.
+# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
+# to send and receive data on data connections.
+# Default: YES
+force_local_data_ssl={{ 'YES' if vsftpd_cfg.force_local_data_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_local_logins_ssl is defined -%}
+# Only applies if ssl_enable is activated.
+# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
+# to send the password.
+# Default: YES
+force_local_logins_ssl={{ 'YES' if vsftpd_cfg.force_local_logins_ssl else 'NO' }}
+{% endif -%}
+
+## --------------------
+## SSL Setting
+## --------------------
+
+{% if vsftpd_cfg.ssl_enable is defined -%}
+# If enabled, and vsftpd was compiled against OpenSSL, vsftpd will support secure connections via SSL.
+# This applies to the control connection (including login) and also data connections.
+# You'll need a client with SSL support too. NOTE!! Beware enabling this option.
+# Only enable it if you need it. vsftpd can make no guarantees about the security of the OpenSSL libraries.
+# By enabling this option, you are declaring that you trust the security of your installed OpenSSL library.
+# Default: NO
+ssl_enable={{ 'YES' if vsftpd_cfg.ssl_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ssl_ciphers is defined -%}
+# This option can be used to select which SSL ciphers vsftpd will allow for encrypted SSL connections.
+# See the ciphers man page for further details.
+# Note that restricting ciphers can be a useful security precaution as it prevents malicious remote parties forcing a cipher which they have found problems with.
+# Default: DES-CBC3-SHA
+ssl_ciphers={{ vsftpd_cfg.ssl_ciphers }}
+{% endif -%}
+
+{% if vsftpd_cfg.ssl_request_cert is defined -%}
+# If enabled, vsftpd will request (but not necessarily require;
+# see require_cert)acertificateonincomingSSLconnections.Normallythis should not cause any trouble at all,
+# but IBM zOS seems to have issues. (New in v2.0.7).
+# Default: YES
+ssl_request_cert={{ 'YES' if vsftpd_cfg.ssl_request_cert else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ssl_sslv2 is defined -%}
+# Only applies if ssl_enable is activated.
+# If enabled, this option will permit SSL v2 protocol connections.
+# TLS v1 connections are preferred.
+# Default: NO
+ssl_sslv2={{ 'YES' if vsftpd_cfg.ssl_sslv2 else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ssl_sslv3 is defined -%}
+# Only applies if ssl_enable is activated.
+# If enabled, this option will permit SSL v3 protocol connections.
+# TLS v1 connections are preferred.
+# Default: NO
+ssl_sslv3={{ 'YES' if vsftpd_cfg.ssl_sslv3 else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.ssl_tlsv1 is defined -%}
+# Only applies if ssl_enable is activated.
+# If enabled, this option will permit TLS v1 protocol connections.
+# TLS v1 connections are preferred.
+# Default: YES
+ssl_tlsv1={{ 'YES' if vsftpd_cfg.ssl_tlsv1 else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.rsa_cert_file is defined -%}
+# This option specifies the location of the RSA certificate to use for SSL encrypted connections.
+# Default: /usr/share/ssl/certs/vsftpd.pem
+rsa_cert_file={{ vsftpd_cfg.rsa_cert_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.rsa_private_key_file is defined -%}
+# This option specifies the location of the RSA private key to use for SSL encrypted connections.
+# If this option is not set, the private key is expected to be in the same file as the certificate.
+# Default: (none)
+rsa_private_key_file={{ vsftpd_cfg.rsa_private_key_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.dsa_cert_file is defined -%}
+# This option specifies the location of the DSA certificate to use for SSL encrypted connections.
+# Default: (none - an RSA certificate suffices)
+dsa_cert_file={{ vsftpd_cfg.dsa_cert_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.dsa_private_key_file is defined -%}
+# This option specifies the location of the DSA private key to use for SSL encrypted connections.
+# If this option is not set, the private key is expected to be in the same file as the certificate.
+# Default: (none)
+dsa_private_key_file={{ vsftpd_cfg.dsa_private_key_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.require_ssl_reuse is defined -%}
+# If set to yes, all SSL data connections are required to exhibit SSL session reuse
+# (which proves that they know the same master secret as the control channel).
+# Although this is a secure default, it may break many FTP clients, so you may want to disable it.
+# For a discussion of the consequences,
+# see http://scarybeastsecurity.blogspot.com/2009/02/vsftpd-210-released.html (Added in v2.1.0).
+# Default: YES
+require_ssl_reuse={{ 'YES' if vsftpd_cfg.require_ssl_reuse else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.debug_ssl is defined -%}
+# If true, OpenSSL connection diagnostics are dumped to the vsftpd log file. (Added in v2.0.6).
+# Default: NO
+debug_ssl={{ 'YES' if vsftpd_cfg.debug_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.implicit_ssl is defined -%}
+# If enabled, an SSL handshake is the first thing expect on all connections (the FTPS protocol).
+# To support explicit SSL and/or plain text too, a separate vsftpd listener process should be run.
+# Default: NO
+implicit_ssl={{ 'YES' if vsftpd_cfg.implicit_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.strict_ssl_read_eof is defined -%}
+# If enabled, SSL data uploads are required to terminate via SSL, not an EOF on the socket.
+# This option is required to be sure that an attacker did not terminate an upload prematurely with a faked TCP FIN. Unfortunately,
+# it is not enabled by default because so few clients get it right. (New in v2.0.7).
+# Default: NO
+strict_ssl_read_eof={{ 'YES' if vsftpd_cfg.strict_ssl_read_eof else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.strict_ssl_write_shutdown is defined -%}
+# If enabled, SSL data downloads are required to terminate via SSL, not an EOF on the socket.
+# This is off by default as I was unable to find a single FTP client that does this. It is minor.
+# All it affects is our ability to tell whether the client confirmed full receipt of the file.
+# Even without this option, the client is able to check the integrity of the download. (New in v2.0.7).
+# Default: NO
+strict_ssl_write_shutdown={{ 'YES' if vsftpd_cfg.strict_ssl_write_shutdown else 'NO' }}
+{% endif -%}
+
+## --------------------
+## Logging
+## --------------------
+
+{% if vsftpd_cfg.log_ftp_protocol is defined -%}
+# When enabled, all FTP requests and responses are logged,
+# providing the option xferlog_std_format is not enabled.
+# Useful for debugging.
+# Default: NO
+log_ftp_protocol={{ 'YES' if vsftpd_cfg.log_ftp_protocol else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.dual_log_enable is defined -%}
+# If enabled, two log files are generated in parallel,
+# going by default to /var/log/xferlog and /var/log/vsftpd.log.
+# The former is a wu-ftpd style transfer log,
+# parseable by standard tools. The latter is vsftpd's own style log.
+# Default: NO
+dual_log_enable={{ 'YES' if vsftpd_cfg.dual_log_enable else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.vsftpd_log_file is defined -%}
@@ -989,10 +969,44 @@ userlist_file={{ vsftpd_cfg.userlist_file }}
 vsftpd_log_file={{ vsftpd_cfg.vsftpd_log_file }}
 {% endif -%}
 
+{% if vsftpd_cfg.xferlog_enable is defined -%}
+# If enabled, a log file will be maintained detailling uploads and downloads.
+# By default, this file will be placed at /var/log/vsftpd.log,
+# but this location may be overridden using the configuration setting vsftpd_log_file.
+# Default: NO (but the sample config file enables it)
+xferlog_enable={{ 'YES' if vsftpd_cfg.xferlog_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.xferlog_std_format is defined -%}
+# If enabled, the transfer log file will be written in standard xferlog format, as used by wu-ftpd.
+# This is useful because you can reuse existing transfer statistics generators.
+# The default format is more readable, however.
+# The default location for this style of log file is /var/log/xferlog,
+# but you may change it with the setting xferlog_file.
+# Default: NO
+xferlog_std_format={{ 'YES' if vsftpd_cfg.xferlog_std_format else 'NO' }}
+{% endif -%}
+
 {% if vsftpd_cfg.xferlog_file is defined -%}
 # This option is the name of the file to which we write the wu-ftpd style transfer log.
 # The transfer log is only written if the option xferlog_enable is set, along with xferlog_std_format.
 # Alternatively, it is written if you have set the option dual_log_enable.
 # Default: /var/log/xferlog
 xferlog_file={{ vsftpd_cfg.xferlog_file }}
+{% endif -%}
+
+{% if vsftpd_cfg.no_log_lock is defined -%}
+# When enabled, this prevents vsftpd from taking a file lock when writing to log files.
+# This option should generally not be enabled.
+# It exists to workaround operating system bugs such as the Solaris / Veritas filesystem combination
+# which has been observed to sometimes exhibit hangs trying to lock log files.
+# Default: NO
+no_log_lock={{ 'YES' if vsftpd_cfg.no_log_lock else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.syslog_enable is defined -%}
+# If enabled, then any log output which would have gone to /var/log/vsftpd.log goes to the system log instead.
+# Logging is done under the FTPD facility.
+# Default: NO
+syslog_enable={{ 'YES' if vsftpd_cfg.syslog_enable else 'NO' }}
 {% endif -%}

@@ -17,6 +17,7 @@ vsftpd_cfg:
   # port_enable: yes
   # port_promiscuous: no
   # connect_timeout: 60
+  # accept_timeout: 60
   # data_connection_timeout: 300
   # idle_session_timeout: 300
   # async_abor_enable: yes
@@ -66,11 +67,10 @@ vsftpd_cfg:
   ## PASV
   ## --------------------
   # pasv_enable: yes
-  # accept_timeout: 60
   # pasv_addr_resolve: no
   # pasv_promiscuous: no
-  # pasv_min_port: 0
-  # pasv_max_port: 0
+  pasv_min_port: 65000
+  pasv_max_port: 65535
   # pasv_address: ""
   ## --------------------
   ## Anonymous User setting
