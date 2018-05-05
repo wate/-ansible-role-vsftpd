@@ -6,7 +6,7 @@
   template:
     src: vsftpd.conf.j2
     dest: /etc/vsftpd/vsftpd.conf
-  notify: restart firewalld
+  notify: restart vsftpd
 - name: create vsftpd user list file
   template:
     src: user_list.j2
