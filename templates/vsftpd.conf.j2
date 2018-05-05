@@ -162,8 +162,9 @@ session_support={{ 'YES' if vsftpd_cfg.session_support else 'NO' }}
 
 {% if vsftpd_cfg.setproctitle_enable is defined -%}
 # If enabled, vsftpd will try and show session status information in the system process listing.
-# In other words, the reported name of the process will change to reflect what a vsftpd session is doing
-# (idle, downloading etc). You probably want to leave this off for security purposes.
+# In other words, the reported name of the process will change to reflect
+# what a vsftpd session is doing (idle, downloading etc).
+# You probably want to leave this off for security purposes.
 # Default: NO
 setproctitle_enable={{ 'YES' if vsftpd_cfg.setproctitle_enable else 'NO' }}
 {% endif -%}
@@ -205,15 +206,15 @@ dirlist_enable={{ 'YES' if vsftpd_cfg.dirlist_enable else 'NO' }}
 
 {% if vsftpd_cfg.file_open_mode is defined -%}
 # The permissions with which uploaded files are created.
-# Umasks are applied on top of this value. You may wish to change to 0777
-# if you want uploaded files to be executable.
+# Umasks are applied on top of this value.
+# You may wish to change to 0777 if you want uploaded files to be executable.
 # Default: 0666
 file_open_mode={{ vsftpd_cfg.file_open_mode }}
 {% endif -%}
 
 {% if vsftpd_cfg.ls_recurse_enable is defined -%}
-# When enabled, this setting will allow the use of "ls -R". This is a minor security risk,
-# because a ls -R at the top level of a large site may consume a lot of resources.
+# When enabled, this setting will allow the use of "ls -R".
+# This is a minor security risk, because a ls -R at the top level of a large site may consume a lot of resources.
 # Default: NO
 ls_recurse_enable={{ 'YES' if vsftpd_cfg.ls_recurse_enable else 'NO' }}
 {% endif -%}
@@ -684,28 +685,6 @@ deny_email_enable={{ 'YES' if vsftpd_cfg.deny_email_enable else 'NO' }}
 banned_email_file={{ vsftpd_cfg.banned_email_file }}
 {% endif -%}
 
-{% if vsftpd_cfg.allow_anon_ssl is defined -%}
-# Only applies if ssl_enable is active. If set to YES,
-# anonymous users will be allowed to use secured SSL connections.
-# Default: NO
-allow_anon_ssl={{ 'YES' if vsftpd_cfg.allow_anon_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_anon_data_ssl is defined -%}
-# Only applies if ssl_enable is activated. If activated,
-# all anonymous logins are forced to use a secure SSL connection in order
-# to send and receive data on data connections.
-# Default: NO
-force_anon_data_ssl={{ 'YES' if vsftpd_cfg.force_anon_data_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_anon_logins_ssl is defined -%}
-# Only applies if ssl_enable is activated. If activated,
-# all anonymous logins are forced to use a secure SSL connection in order to send the password.
-# Default: NO
-force_anon_logins_ssl={{ 'YES' if vsftpd_cfg.force_anon_logins_ssl else 'NO' }}
-{% endif -%}
-
 ## --------------------
 ## Local User Setting
 ## --------------------
@@ -765,9 +744,10 @@ userlist_file={{ vsftpd_cfg.userlist_file }}
 {% if vsftpd_cfg.chroot_local_user is defined -%}
 # If set to YES, local users will be (by default) placed in a chroot() jail in
 # their home directory after login.
-# Warning: This option has security implications, especially
-# if the users have upload permission, or shell access.
-# Only enable if you know what you are doing. Note that these security implications are not vsftpd specific.
+# Warning:
+# This option has security implications, especially if the users have upload permission, or shell access.
+# Only enable if you know what you are doing.
+# Note that these security implications are not vsftpd specific.
 # They apply to all FTP daemons which offer to put local users in chroot() jails.
 # Default: NO
 chroot_local_user={{ 'YES' if vsftpd_cfg.chroot_local_user else 'NO' }}
@@ -782,6 +762,10 @@ chroot_local_user={{ 'YES' if vsftpd_cfg.chroot_local_user else 'NO' }}
 # but you may override this with the chroot_list_file setting.
 # Default: NO
 chroot_list_enable={{ 'YES' if vsftpd_cfg.chroot_list_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.allow_writeable_chroot is defined -%}
+allow_writeable_chroot={{ 'YES' if vsftpd_cfg.allow_writeable_chroot else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.chroot_list_file is defined -%}
@@ -801,22 +785,6 @@ chroot_list_file={{ vsftpd_cfg.chroot_list_file }}
 # that particular location in the path.
 # Default: NO
 passwd_chroot_enable={{ 'YES' if vsftpd_cfg.passwd_chroot_enable else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_local_data_ssl is defined -%}
-# Only applies if ssl_enable is activated.
-# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
-# to send and receive data on data connections.
-# Default: YES
-force_local_data_ssl={{ 'YES' if vsftpd_cfg.force_local_data_ssl else 'NO' }}
-{% endif -%}
-
-{% if vsftpd_cfg.force_local_logins_ssl is defined -%}
-# Only applies if ssl_enable is activated.
-# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
-# to send the password.
-# Default: YES
-force_local_logins_ssl={{ 'YES' if vsftpd_cfg.force_local_logins_ssl else 'NO' }}
 {% endif -%}
 
 ## --------------------
@@ -907,6 +875,44 @@ dsa_private_key_file={{ vsftpd_cfg.dsa_private_key_file }}
 # see http://scarybeastsecurity.blogspot.com/2009/02/vsftpd-210-released.html (Added in v2.1.0).
 # Default: YES
 require_ssl_reuse={{ 'YES' if vsftpd_cfg.require_ssl_reuse else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.allow_anon_ssl is defined -%}
+# Only applies if ssl_enable is active. If set to YES,
+# anonymous users will be allowed to use secured SSL connections.
+# Default: NO
+allow_anon_ssl={{ 'YES' if vsftpd_cfg.allow_anon_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_anon_data_ssl is defined -%}
+# Only applies if ssl_enable is activated. If activated,
+# all anonymous logins are forced to use a secure SSL connection in order
+# to send and receive data on data connections.
+# Default: NO
+force_anon_data_ssl={{ 'YES' if vsftpd_cfg.force_anon_data_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_anon_logins_ssl is defined -%}
+# Only applies if ssl_enable is activated. If activated,
+# all anonymous logins are forced to use a secure SSL connection in order to send the password.
+# Default: NO
+force_anon_logins_ssl={{ 'YES' if vsftpd_cfg.force_anon_logins_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_local_data_ssl is defined -%}
+# Only applies if ssl_enable is activated.
+# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
+# to send and receive data on data connections.
+# Default: YES
+force_local_data_ssl={{ 'YES' if vsftpd_cfg.force_local_data_ssl else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.force_local_logins_ssl is defined -%}
+# Only applies if ssl_enable is activated.
+# If activated, all non-anonymous logins are forced to use a secure SSL connection in order
+# to send the password.
+# Default: YES
+force_local_logins_ssl={{ 'YES' if vsftpd_cfg.force_local_logins_ssl else 'NO' }}
 {% endif -%}
 
 {% if vsftpd_cfg.debug_ssl is defined -%}
@@ -1009,4 +1015,8 @@ no_log_lock={{ 'YES' if vsftpd_cfg.no_log_lock else 'NO' }}
 # Logging is done under the FTPD facility.
 # Default: NO
 syslog_enable={{ 'YES' if vsftpd_cfg.syslog_enable else 'NO' }}
+{% endif -%}
+
+{% if vsftpd_cfg.extra_setting is defined -%}
+{{ vsftpd_cfg.extra_setting }}
 {% endif -%}

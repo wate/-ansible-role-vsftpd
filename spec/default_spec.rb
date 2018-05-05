@@ -279,18 +279,6 @@ describe file('/etc/vsftpd/vsftpd.conf') do
   if vsftpd_cfg.key?('banned_email_file')
     its(:content) { should match(/banned_email_file=#{e(vsftpd_cfg['banned_email_file'])}/) }
   end
-  if vsftpd_cfg.key?('allow_anon_ssl')
-    allow_anon_ssl = vsftpd_cfg['allow_anon_ssl'] ? 'YES' : 'NO'
-    its(:content) { should match(/allow_anon_ssl=#{e(allow_anon_ssl)}/) }
-  end
-  if vsftpd_cfg.key?('force_anon_data_ssl')
-    force_anon_data_ssl = vsftpd_cfg['force_anon_data_ssl'] ? 'YES' : 'NO'
-    its(:content) { should match(/force_anon_data_ssl=#{e(force_anon_data_ssl)}/) }
-  end
-  if vsftpd_cfg.key?('force_anon_logins_ssl')
-    force_anon_logins_ssl = vsftpd_cfg['force_anon_logins_ssl'] ? 'YES' : 'NO'
-    its(:content) { should match(/force_anon_logins_ssl=#{e(force_anon_logins_ssl)}/) }
-  end
   ## --------------------
   ## Local User Setting
   ## --------------------
@@ -320,20 +308,16 @@ describe file('/etc/vsftpd/vsftpd.conf') do
     chroot_list_enable = vsftpd_cfg['chroot_list_enable'] ? 'YES' : 'NO'
     its(:content) { should match(/chroot_list_enable=#{e(chroot_list_enable)}/) }
   end
+  if vsftpd_cfg.key?('allow_writeable_chroot')
+    allow_writeable_chroot = vsftpd_cfg['allow_writeable_chroot'] ? 'YES' : 'NO'
+    its(:content) { should match(/allow_writeable_chroot=#{e(allow_writeable_chroot)}/) }
+  end
   if vsftpd_cfg.key?('chroot_list_file')
     its(:content) { should match(/chroot_list_file=#{e(vsftpd_cfg['chroot_list_file'])}/) }
   end
   if vsftpd_cfg.key?('passwd_chroot_enable')
     passwd_chroot_enable = vsftpd_cfg['passwd_chroot_enable'] ? 'YES' : 'NO'
     its(:content) { should match(/passwd_chroot_enable=#{e(passwd_chroot_enable)}/) }
-  end
-  if vsftpd_cfg.key?('force_local_data_ssl')
-    force_local_data_ssl = vsftpd_cfg['force_local_data_ssl'] ? 'YES' : 'NO'
-    its(:content) { should match(/force_local_data_ssl=#{e(force_local_data_ssl)}/) }
-  end
-  if vsftpd_cfg.key?('force_local_logins_ssl')
-    force_local_logins_ssl = vsftpd_cfg['force_local_logins_ssl'] ? 'YES' : 'NO'
-    its(:content) { should match(/force_local_logins_ssl=#{e(force_local_logins_ssl)}/) }
   end
   ## --------------------
   ## SSL Setting
@@ -370,6 +354,26 @@ describe file('/etc/vsftpd/vsftpd.conf') do
   if vsftpd_cfg.key?('require_ssl_reuse')
     require_ssl_reuse = vsftpd_cfg['require_ssl_reuse'] ? 'YES' : 'NO'
     its(:content) { should match(/require_ssl_reuse=#{e(require_ssl_reuse)}/) }
+  end
+  if vsftpd_cfg.key?('allow_anon_ssl')
+    allow_anon_ssl = vsftpd_cfg['allow_anon_ssl'] ? 'YES' : 'NO'
+    its(:content) { should match(/allow_anon_ssl=#{e(allow_anon_ssl)}/) }
+  end
+  if vsftpd_cfg.key?('force_anon_data_ssl')
+    force_anon_data_ssl = vsftpd_cfg['force_anon_data_ssl'] ? 'YES' : 'NO'
+    its(:content) { should match(/force_anon_data_ssl=#{e(force_anon_data_ssl)}/) }
+  end
+  if vsftpd_cfg.key?('force_anon_logins_ssl')
+    force_anon_logins_ssl = vsftpd_cfg['force_anon_logins_ssl'] ? 'YES' : 'NO'
+    its(:content) { should match(/force_anon_logins_ssl=#{e(force_anon_logins_ssl)}/) }
+  end
+  if vsftpd_cfg.key?('force_local_data_ssl')
+    force_local_data_ssl = vsftpd_cfg['force_local_data_ssl'] ? 'YES' : 'NO'
+    its(:content) { should match(/force_local_data_ssl=#{e(force_local_data_ssl)}/) }
+  end
+  if vsftpd_cfg.key?('force_local_logins_ssl')
+    force_local_logins_ssl = vsftpd_cfg['force_local_logins_ssl'] ? 'YES' : 'NO'
+    its(:content) { should match(/force_local_logins_ssl=#{e(force_local_logins_ssl)}/) }
   end
   if vsftpd_cfg.key?('debug_ssl')
     debug_ssl = vsftpd_cfg['debug_ssl'] ? 'YES' : 'NO'
