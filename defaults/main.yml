@@ -117,9 +117,9 @@ vsftpd_cfg:
   # ssl_enable: no
   # ssl_ciphers: DES-CBC3-SHA
   # ssl_request_cert: yes
-  # ssl_sslv2: no
-  # ssl_sslv3: no
-  # ssl_tlsv1: yes
+  ssl_sslv2: no
+  ssl_sslv3: no
+  ssl_tlsv1: yes
   # rsa_cert_file: /usr/share/ssl/certs/vsftpd.pem
   # rsa_private_key_file: ""
   # dsa_cert_file: ""
