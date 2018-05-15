@@ -343,6 +343,14 @@ describe file('/etc/vsftpd/vsftpd.conf') do
     ssl_tlsv1 = vsftpd_cfg['ssl_tlsv1'] ? 'YES' : 'NO'
     its(:content) { should match(/ssl_tlsv1=#{e(ssl_tlsv1)}/) }
   end
+  if vsftpd_cfg.key?('ssl_tlsv1_1')
+    ssl_tlsv11 = vsftpd_cfg['ssl_tlsv1_1'] ? 'YES' : 'NO'
+    its(:content) { should match(/ssl_tlsv1_1=#{e(ssl_tlsv11)}/) }
+  end
+  if vsftpd_cfg.key?('ssl_tlsv1_2')
+    ssl_tlsv12 = vsftpd_cfg['ssl_tlsv1_2'] ? 'YES' : 'NO'
+    its(:content) { should match(/ssl_tlsv1_2=#{e(ssl_tlsv12)}/) }
+  end
   its(:content) { should match(/rsa_cert_file=#{e(vsftpd_cfg['rsa_cert_file'])}/) } if vsftpd_cfg.key?('rsa_cert_file')
   if vsftpd_cfg.key?('rsa_private_key_file')
     its(:content) { should match(/rsa_private_key_file=#{e(vsftpd_cfg['rsa_private_key_file'])}/) }

@@ -840,6 +840,12 @@ ssl_sslv3={{ 'YES' if vsftpd_cfg.ssl_sslv3 else 'NO' }}
 # Default: YES
 ssl_tlsv1={{ 'YES' if vsftpd_cfg.ssl_tlsv1 else 'NO' }}
 {% endif -%}
+{% if vsftpd_cfg.ssl_tlsv1_1 is defined -%}
+ssl_tlsv1_1={{ 'YES' if vsftpd_cfg.ssl_tlsv1_1 else 'NO' }}
+{% endif -%}
+{% if vsftpd_cfg.ssl_tlsv1_2 is defined -%}
+ssl_tlsv1_2={{ 'YES' if vsftpd_cfg.ssl_tlsv1_2 else 'NO' }}
+{% endif -%}
 
 {% if vsftpd_cfg.rsa_cert_file is defined -%}
 # This option specifies the location of the RSA certificate to use for SSL encrypted connections.

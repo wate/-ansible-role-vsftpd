@@ -115,7 +115,9 @@ vsftpd_cfg:
   # ssl_request_cert: yes
   ssl_sslv2: no
   ssl_sslv3: no
-  ssl_tlsv1: yes
+  ssl_tlsv1: no
+  ssl_tlsv1_1: no
+  ssl_tlsv1_2: yes
   # allow_anon_ssl: no
   # force_anon_data_ssl: no
   # force_anon_logins_ssl: no
