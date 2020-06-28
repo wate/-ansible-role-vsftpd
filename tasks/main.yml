@@ -27,24 +27,24 @@
   systemd:
     name: vsftpd
     state: started
-    enabled: yes
+    enabled: true
 - name: allow ftp control port
   firewalld:
     port: "{{ vsftpd_cfg.listen_port|default(21) }}/tcp"
-    permanent: yes
+    permanent: true
     state: enabled
   notify: restart firewalld
 - name: allow ftp data port(ACTIVE)
   firewalld:
     port: "{{ vsftpd_cfg.ftp_data_port|default(20) }}/tcp"
-    permanent: yes
+    permanent: true
     state: enabled
   notify: restart firewalld
   when: not vsftpd_cfg.pasv_enable|default(true)
 - name: allow ftp data port(PASV)
   firewalld:
     port: "{{ vsftpd_cfg.pasv_min_port }}-{{ vsftpd_cfg.pasv_max_port }}/tcp"
-    permanent: yes
+    permanent: true
     state: enabled
   notify: restart firewalld
   when:
