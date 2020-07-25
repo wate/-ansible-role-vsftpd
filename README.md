@@ -1,8 +1,9 @@
 vsftpd
 =========
 
-[vsftpd](https://security.appspot.com/vsftpd.html)のインストールとセットアップを行います。
+[![Build Status](https://travis-ci.org/wate/ansible-role-vsftpd.svg?branch=master)](https://travis-ci.org/wate/ansible-role-vsftpd)
 
+[vsftpd](https://security.appspot.com/vsftpd.html)のインストールとセットアップを行います。
 
 Role Variables
 --------------
@@ -201,7 +202,7 @@ Example Playbook
 ```yml
 - hosts: servers
   roles:
-     - { role: vsftpd }
+     - role: vsftpd
 ```
 
 License
