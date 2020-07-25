@@ -4,15 +4,14 @@ env:
   global:
   - ROLE_NAME: vsftpd
 install:
-- pip install molecule yamllint ansible-lint docker
+  - pip install molecule yamllint ansible-lint docker
 before_script:
-- cd ../
-- git clone --depth=1 https://github.com/wate/ansible-role-repo-epel.git repo-epel
-- mv ansible-role-$ROLE_NAME $ROLE_NAME
-- cd $ROLE_NAME
+  - cd ../
+  - mv ansible-role-$ROLE_NAME $ROLE_NAME
+  - cd $ROLE_NAME
 script:
-- molecule test
+  - molecule test
 notifications:
   email: false
   slack:
-    secure: Egt5Xwy54vFoGK7co1PGOLLyi2ZU8vr9uVtpW7EABn9YC1t6bK/jeZP81XDmEtM+CD5iRVZwF0KL6KbMpOmP7SmeZ8bAj0BbVe0PUikDMTltwA8C9PHdyfQvgSeC7FNW7tzo9u660AhgB1FFsIc2Y9KMNZ87xpVWdSHsDDRpvAourlpas6oOmpXYk1/u/BT51c6AQnwmy+jbtsPvdjLmOPCdgE+cYBQ6irzuj/d79O8anfW4cNdS+JJVrDGscxEAFm58DTA+YPBajXgrnKyRiy2rKe9k2iusxdcRSJnBfcpx4lj6FuUt1NdWtVryqUC6JM7/DUJrpvj4P4XPDxYHaCSh1tprKo9LgPaLBzvtWj3v3neQ5TD+sirPo42S7uYcCxuPwHFFrbZ1s9k2fL4xlLrTY0+l3KQXyQNmGLg019VVi5PCyFhzLMlwt26lERrXb8vBEaMfEkcDnlA6gqfrn1+JwKh6FQ5fl8ruKv0TJPiSfCf6bCB5+DbwwG7ESTS4YmBg1HNwGHpJwMk3lmkJkdS3wuyoTFX92HPD2P1JwnjwZght0HaoHOxc8TaI+Wu8Ppv5RBesO+jgDxa4my7FqqTWCYl+2CxurzV+A9GSsLebQuN/wLNNYEnEVySSsOel45uz4Ax5zNnW7li7NO3qPSeep1INFsLfK5w3EWIR8RQ=
+    secure: XRGQBJhuzz5b1jQ6vNTV1klNbSG5eMsDzdO1vpFkMHtUzX9ktec85zQ6tos+IGDPZJDVcH8JEy0bqNR5SmImJ9R4HF4EVlTt9mV1hq2n/sjVOmKDcpW0GODo1sUsKNFf99CVf5pKmkmPpCUoqkm87HRCJ6vR6w0q5GthMXnd9FlXKM4ras8tATB25lnY/VVyftQQejue1uJNKCySLIfGp8EIfOz0XklyCqQOfPDrS/fHCBME1JlyWk5dy1b3EDuAtOE0Qy5oEEN3oN+SYi2HdY7euQJLv4e60pkoUKYdKaR/1WvW/Y8/Ej6kt/SHKn3ZJ5AfkjMzb5bL1M75SB+hWBfDG4vWgDpsyYs+RKD2oHSFJx9nsspcAThj0wEE2xoaPX9J7ZZW3gFDpHNpTgMV6hfMIBm7RzcEM9Uzpwm6RM2jP3WBs2b3KUUlP+GsaLBLbwkT47sh68Xyg0k5NtC8BpK1IFC0m0Dq/jReL7c8K+wDeHypOjd//y/31HfLQ1biIazD0Xf77VzjkOVrCHutRrWGzEjalHcreVgDj+zRxjY2O4n3Ti4zQnQ5B2aJk20pTz1Un/BSDv/BLRfUgNEt+dmJFD7lie2E+Hu6d3g+vmI4Mf4x71KA6BpncnE8BLtj5C12pPoryLuHGZTz2qrJg3YDWBCl4whE/GQvRBROTcI=
