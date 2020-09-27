@@ -6,23 +6,28 @@
   template:
     src: vsftpd.conf.j2
     dest: /etc/vsftpd/vsftpd.conf
+    mode: "0644"
   notify: restart vsftpd
 - name: create vsftpd user list file
   template:
     src: user_list.j2
     dest: /etc/vsftpd/user_list
+    mode: "0644"
 - name: create vsftpd chroot user list file
   template:
     src: chroot_list.j2
     dest: /etc/vsftpd/chroot_list
+    mode: "0644"
 - name: create vsftpd banned email file
   template:
     src: banned_emails.j2
     dest: /etc/vsftpd/banned_emails
+    mode: "0644"
 - name: create vsftpd email password file
   template:
     src: email_passwords.j2
     dest: /etc/vsftpd/email_passwords
+    mode: "0644"
 - name: vsftpd is active and enabled on system startup
   systemd:
     name: vsftpd
